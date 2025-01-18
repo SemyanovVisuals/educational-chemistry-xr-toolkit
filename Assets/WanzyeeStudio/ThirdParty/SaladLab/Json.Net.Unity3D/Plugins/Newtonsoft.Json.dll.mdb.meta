@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9d84eeb258e65c169f0958973f6d2099
+DefaultImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 58621
+  packageName: Json.NET Converters - Simple compatible solution
+  packageVersion: 1.1.2
+  assetPath: Assets/WanzyeeStudio/ThirdParty/SaladLab/Json.Net.Unity3D/Plugins/Newtonsoft.Json.dll.mdb
+  uploadId: 272723
