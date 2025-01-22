@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ChemicalReactions
+public class ChemicalReactionDatabase
 {
     public static Dictionary<string, Dictionary<string, Dictionary<string, (int, int, int)>>> Map = new Dictionary<string, Dictionary<string, Dictionary<string, (int, int, int)>>>
     {
