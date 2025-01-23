@@ -49,8 +49,8 @@ public class ChemicalEntity : MonoBehaviour
     };
 
     // Serialize a defining info of the chemical entity
-    [SerializeField] private ChemEntity entity;
-    [SerializeField] private Elements element;
+    [SerializeField] public ChemEntity entity;
+    [SerializeField] public Elements element;
     [SerializeField] private Compounds compound;
     [SerializeField] public string formula;
     [SerializeField] private string name;

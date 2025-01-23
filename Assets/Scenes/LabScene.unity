@@ -7867,6 +7867,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reactionUIManager: {fileID: 676717243}
+  availableElements: []
+  creatableCompounds: []
+  unlockedCompounds: []
 --- !u!1 &629718301
 GameObject:
   m_ObjectHideFlags: 0
