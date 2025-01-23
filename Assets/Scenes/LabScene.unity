@@ -7832,6 +7832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 629170529}
   - component: {fileID: 629170530}
+  - component: {fileID: 629170531}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7867,6 +7868,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reactionUIManager: {fileID: 676717243}
+--- !u!114 &629170531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629170528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89828cd2be460e24d9bb3b186107d5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: reactions.txt
+  reactionsFile: {fileID: 4900000, guid: 2ff2608403761c34dbbc01c0a5a9d07a, type: 3}
 --- !u!1 &629718301
 GameObject:
   m_ObjectHideFlags: 0
