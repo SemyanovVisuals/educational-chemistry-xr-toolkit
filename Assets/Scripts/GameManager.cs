@@ -4,16 +4,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private ReactionUIManager reactionUIManager;
+    [SerializeField] private ReactionUIManager reactionGameManager;
 
     [Header("Collected Data")]
     [SerializeField] private List<string> availableElements = new List<string>(); // Names of elements available in the scene
     [SerializeField] private List<string> creatableCompounds = new List<string>(); // Names of compounds that can be created
     [SerializeField] private List<string> unlockedCompounds = new List<string>(); // Compounds unlocked by the user
 
+    [Header("Full Item List")]
+    [SerializeField] private List<string> unlockedEntities = new List<string>();
+
     private void Start()
     {
         // Collect the elements available in the scene
         CollectAvailableElements();
+
+        // Add unique available elements to unlockedEntities
+        AddAvailableElementsToUnlockedEntities();
 
         // Calculate the compounds that can be created
         CalculatePossibleCompounds();
@@ -49,7 +56,6 @@ public class GameManager : MonoBehaviour
             {
                 firstEntity.coefficient -= result.coefficients.Item1;
                 secondEntity.coefficient -= result.coefficients.Item2;
-                secondEntity.coefficient = secondEntity.coefficient;
                 firstEntity.UpdateCoefficientUI();
                 secondEntity.UpdateCoefficientUI();
 
@@ -102,12 +108,13 @@ public class GameManager : MonoBehaviour
         {
             // Add the compound to the unlockedCompounds list
             unlockedCompounds.Add(product1);
-            reactionUIManager.DisplayReactionText($"Compound unlocked: {product1}"); // Show unlocked compound
+            unlockedEntities.Add(product1); // Add to unlockedEntities as well
+            reactionGameManager.DisplayReactionText($"Unlocked Entities: {product1}"); // Show unlocked compound
 
             // If all compounds are unlocked, show "Game Completed" message
             if (unlockedCompounds.Count == creatableCompounds.Count)
             {
-                reactionUIManager.DisplayReactionText("Game Completed! All compounds have been created.");
+                reactionGameManager.DisplayReactionText("Game Completed!");
             }
         }
     }
@@ -157,6 +164,13 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"Collected {availableElements.Count} available elements in the scene.");
+    }
+
+    private void AddAvailableElementsToUnlockedEntities()
+    {
+        HashSet<string> uniqueElements = new HashSet<string>(availableElements);
+        unlockedEntities.AddRange(uniqueElements);
+        Debug.Log($"Added {uniqueElements.Count} unique elements to Unlocked Entities.");
     }
 
     private void CalculatePossibleCompounds()
