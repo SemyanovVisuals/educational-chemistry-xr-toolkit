@@ -21,14 +21,16 @@ public class ChemicalEntity : MonoBehaviour
         None,
         H2,
         O2,
-        N2
+        N2,
+        C
     }
 
     public enum Compounds
     {
         None,
         H2O,
-        NH3
+        NH3,
+        CH4
     }
     
     // Dictionary for Basic Entities
@@ -37,6 +39,7 @@ public class ChemicalEntity : MonoBehaviour
         { Elements.H2, "hydrogen gas" },
         { Elements.O2, "oxygen gas" },
         { Elements.N2, "nitrogen gas" },
+        { Elements.C, "carbon" },
         { Elements.None, "None" }
     };
 
@@ -45,6 +48,7 @@ public class ChemicalEntity : MonoBehaviour
     {
         { Compounds.H2O, "water" },
         { Compounds.NH3, "ammonia" },
+        { Compounds.CH4, "metan" },
         { Compounds.None, "None" }
     };
 

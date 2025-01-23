@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|c:\\users\\bcu\\documents\\github\\educational-chemistry-xr-toolkit\\assets\\scripts\\gamemanagertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanagertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\chemicalentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\chemicalentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|c:\\users\\bcu\\documents\\github\\educational-chemistry-xr-toolkit\\assets\\scripts\\reactionuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\reactionuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\grabreleasedetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\grabreleasedetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\chemicalreactiondatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\chemicalreactiondatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|c:\\users\\bcu\\documents\\github\\educational-chemistry-xr-toolkit\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|c:\\users\\bcu\\documents\\github\\educational-chemistry-xr-toolkit\\assets\\scripts\\gamemanagertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanagertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\chemicalentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\chemicalentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\grabreleasedetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\grabreleasedetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,7 +42,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "ReactionUIManager.cs",
+              "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ReactionUIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ReactionUIManager.cs",
+              "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ReactionUIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ReactionUIManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T02:30:30.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "GameManagerTest.cs",
               "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\GameManagerTest.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManagerTest.cs",
@@ -51,7 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
@@ -59,25 +76,24 @@
               "RelativeToolTip": "Assets\\Scripts\\GameManager.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T23:33:08.884Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-22T23:33:08.884Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "ChemicalReactionDatabase.cs",
               "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ChemicalReactionDatabase.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ChemicalReactionDatabase.cs",
               "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ChemicalReactionDatabase.cs",
               "RelativeToolTip": "Assets\\Scripts\\ChemicalReactionDatabase.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAkwC0AAAANAAAA",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAYwEIAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-22T23:32:42.851Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "GrabReleaseDetector.cs",
               "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\GrabReleaseDetector.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GrabReleaseDetector.cs",
@@ -85,17 +101,18 @@
               "RelativeToolTip": "Assets\\Scripts\\GrabReleaseDetector.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T23:14:39.606Z"
+              "WhenOpened": "2025-01-22T23:14:39.606Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "ChemicalEntity.cs",
               "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ChemicalEntity.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ChemicalEntity.cs",
               "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ChemicalEntity.cs",
               "RelativeToolTip": "Assets\\Scripts\\ChemicalEntity.cs",
-              "ViewState": "AQIAACkAAAAAAAAAAAAwwEwAAAAoAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-22T22:56:01.884Z",
               "EditorCaption": ""
