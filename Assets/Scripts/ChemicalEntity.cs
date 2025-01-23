@@ -19,15 +19,21 @@ public class ChemicalEntity : MonoBehaviour
     {
         None,
         H2,
+        Fe,
         O2,
-        N2
+        N2,
     }
 
     public enum Compounds
     {
         None,
         H2O,
-        NH3
+        NH3,
+        CO2,
+        HCN,
+        CH4,
+        NO,
+        Fe2​O3
     }
     
     // Dictionary for Elements
@@ -36,6 +42,7 @@ public class ChemicalEntity : MonoBehaviour
         { Elements.H2, "hydrogen gas" },
         { Elements.O2, "oxygen gas" },
         { Elements.N2, "nitrogen gas" },
+        { Elements.Fe, "iron" },
         { Elements.None, "None" }
     };
 
@@ -44,6 +51,11 @@ public class ChemicalEntity : MonoBehaviour
     {
         { Compounds.H2O, "water" },
         { Compounds.NH3, "ammonia" },
+        { Compounds.CO2, "carbon dioxide" },
+        { Compounds.Fe2​O3, "iron oxide" },
+        { Compounds.NO, "nitric oxide" },
+        { Compounds.CH4, "methane" },
+        { Compounds.HCN, "cyanide" },
         { Compounds.None, "None" }
     };
 
