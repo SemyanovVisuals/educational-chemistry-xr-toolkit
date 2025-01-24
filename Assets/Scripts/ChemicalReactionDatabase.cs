@@ -14,7 +14,7 @@ public class ChemicalReactionDatabase : MonoBehaviour
     // Path to the text file (make sure this file exists in your Assets/Resources folder)
     public TextAsset reactionsFile;
 
-    void Start()
+    void Awake()
     {
         // Read all lines from the file
         string[] lines = reactionsFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -127,8 +127,8 @@ public class ChemicalReactionDatabase : MonoBehaviour
         return result.ToString();
     }
 
-    // Retrieve the list of possible reactions for a pair of reactants
-    public static List<(Dictionary<string, int> products, (int, int) coefficients)> GetReactions(string reactant1, string reactant2)
+    // Retrieve the list of possible products + coefficients for a pair of reactants
+    public static List<(Dictionary<string, int> products, (int, int) coefficients)> GetProducts(string reactant1, string reactant2)
     {
         if (Map.ContainsKey(reactant1) && Map[reactant1].ContainsKey(reactant2))
         {
@@ -136,6 +136,6 @@ public class ChemicalReactionDatabase : MonoBehaviour
         }
 
         Debug.LogError("Reaction not found!");
-        return new List<(Dictionary<string, int> products, (int, int) coefficients)>();
+        return null;
     }
 }
