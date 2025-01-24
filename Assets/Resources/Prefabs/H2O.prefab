@@ -926,7 +926,6 @@ GameObject:
   - component: {fileID: 1666691767365928361}
   - component: {fileID: 718901372227320084}
   - component: {fileID: 2675281817434590435}
-  - component: {fileID: 512914308886306889}
   m_Layer: 0
   m_Name: H2O
   m_TagString: Untagged
@@ -1003,6 +1002,7 @@ MonoBehaviour:
   coefficient: 1
   coefficientText: {fileID: 2012245969588984377}
   formulaNameText: {fileID: 8503361532557605664}
+  reactionUIText: {fileID: 0}
 --- !u!114 &1666691767365928361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,67 +1089,6 @@ MonoBehaviour:
   _movementProvider: {fileID: 0}
   _handAligment: 1
   _handGrabPoses: []
---- !u!114 &512914308886306889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8121577606699063181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactableView: {fileID: 2675281817434590435}
-  _whenHover:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenUnhover:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelect:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8764279549545673183}
-        m_TargetAssemblyTypeName: ChemicalEntity, Assembly-CSharp
-        m_MethodName: UpdateGrabbed
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _whenUnselect:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8764279549545673183}
-        m_TargetAssemblyTypeName: ChemicalEntity, Assembly-CSharp
-        m_MethodName: UpdateGrabbed
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _whenInteractorViewAdded:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenInteractorViewRemoved:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelectingInteractorViewAdded:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelectingInteractorViewRemoved:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8528249155428814293
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,8 @@ using UnityEngine;
 public class ChemicalReactionDatabase : MonoBehaviour
 {
     // The Map to store chemical reactions
-    public static Dictionary<string, Dictionary<string, List<(Dictionary<string, int> products, (int, int) coefficients)>>> Map =
-        new Dictionary<string, Dictionary<string, List<(Dictionary<string, int> products, (int, int) coefficients)>>>();
+    public static Dictionary<string, Dictionary<string, Dictionary<string, (int, int, int)>>> Map =
+        new Dictionary<string, Dictionary<string, Dictionary<string, (int, int, int)>>>();
 
     // Path to the text file (make sure this file exists in your Assets/Resources folder)
     public TextAsset reactionsFile;
@@ -46,33 +46,29 @@ public class ChemicalReactionDatabase : MonoBehaviour
             throw new FormatException("Reaction must contain exactly one '->' symbol.");
 
         string[] lhs = parts[0].Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries);
-        string[] rhs = parts[1].Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries);
+        string rhs = parts[1].Trim();
 
-        // Parse the RHS (products)
-        var products = new Dictionary<string, int>();
-        foreach (string productString in rhs)
-        {
-            var (productCoefficient, product) = ParseCompound(productString.Trim());
-            products[product] = productCoefficient;
-        }
+        // Parse the RHS (e.g., "2 H2O")
+        (int productCoefficient, string product) = ParseCompound(rhs);
 
-        // Parse the LHS components (reactants)
+        // Parse the LHS components (e.g., "2 H2", "O2")
         var lhsComponents = new List<(int coefficient, string compound)>();
         foreach (string component in lhs)
         {
             lhsComponents.Add(ParseCompound(component.Trim()));
         }
 
-        // Add the reaction to the Map for each pair of LHS compounds
+        // Add the reaction to the Map for each LHS compound
         for (int i = 0; i < lhsComponents.Count; i++)
         {
-            var lhsCompound1 = lhsComponents[i];
+            var lhsCompound = lhsComponents[i];
+
             for (int j = 0; j < lhsComponents.Count; j++)
             {
-                if (i == j) continue; // Avoid adding reactions between the same compound
+                if (i == j) continue; // Avoid adding reactions to itself
 
-                var lhsCompound2 = lhsComponents[j];
-                AddToMap(lhsCompound1.compound, lhsCompound2.compound, products, lhsCompound1.coefficient, lhsCompound2.coefficient);
+                var otherLhsCompound = lhsComponents[j];
+                AddToMap(lhsCompound.compound, otherLhsCompound.compound, product, lhsCompound.coefficient, otherLhsCompound.coefficient, productCoefficient);
             }
         }
     }
@@ -91,19 +87,19 @@ public class ChemicalReactionDatabase : MonoBehaviour
     }
 
     // Add a reaction to the Map
-    private void AddToMap(string reactant1, string reactant2, Dictionary<string, int> products, int coefficient1, int coefficient2)
+    private void AddToMap(string reactant1, string reactant2, string product, int coefficient1, int coefficient2, int productCoefficient)
     {
         if (!Map.ContainsKey(reactant1))
         {
-            Map[reactant1] = new Dictionary<string, List<(Dictionary<string, int> products, (int, int) coefficients)>>();
+            Map[reactant1] = new Dictionary<string, Dictionary<string, (int, int, int)>>();
         }
 
         if (!Map[reactant1].ContainsKey(reactant2))
         {
-            Map[reactant1][reactant2] = new List<(Dictionary<string, int> products, (int, int) coefficients)>();
+            Map[reactant1][reactant2] = new Dictionary<string, (int, int, int)>();
         }
 
-        Map[reactant1][reactant2].Add((products, (coefficient1, coefficient2)));
+        Map[reactant1][reactant2][product] = (coefficient1, coefficient2, productCoefficient);
     }
 
     // Convert the Map to a readable string for debugging
@@ -116,26 +112,32 @@ public class ChemicalReactionDatabase : MonoBehaviour
             foreach (var reactant2 in reactant1.Value)
             {
                 result.AppendLine($"\tReactant2: {reactant2.Key}");
-                foreach (var reaction in reactant2.Value)
+                foreach (var product in reactant2.Value)
                 {
-                    var coefficients = reaction.coefficients;
-                    var products = string.Join(", ", reaction.products.Select(p => $"{p.Value} {p.Key}"));
-                    result.AppendLine($"\t\tProducts: {products} (Reactants Coefficients: {coefficients.Item1}, {coefficients.Item2})");
+                    var coefficients = product.Value;
+                    result.AppendLine($"\t\tProduct: {product.Key} ({coefficients.Item1}, {coefficients.Item2}, {coefficients.Item3})");
                 }
             }
         }
         return result.ToString();
     }
+    
 
-    // Retrieve the list of possible reactions for a pair of reactants
-    public static List<(Dictionary<string, int> products, (int, int) coefficients)> GetReactions(string reactant1, string reactant2)
+    public static (string product, (int, int, int) coefficients) GetProduct(string reactant1, string reactant2)
     {
+        // Check the first reactant and its associated second reactant
         if (Map.ContainsKey(reactant1) && Map[reactant1].ContainsKey(reactant2))
         {
-            return Map[reactant1][reactant2];
+            var product = Map[reactant1][reactant2];
+            // Get the product and the last coefficient
+            var productKey = product.Keys.First();
+            var coefficients = product[productKey];
+            
+            return (productKey, coefficients);
         }
 
+        // If no reaction found
         Debug.LogError("Reaction not found!");
-        return new List<(Dictionary<string, int> products, (int, int) coefficients)>();
+        return ("None", (0, 0, 0));  // Return default value
     }
 }
