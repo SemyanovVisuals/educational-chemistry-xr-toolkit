@@ -19,6 +19,7 @@ public class ChemicalEntity : MonoBehaviour
     {
         None,
         H2,
+        C,
         Fe,
         O2,
         N2,
@@ -43,6 +44,7 @@ public class ChemicalEntity : MonoBehaviour
         { Elements.O2, "oxygen gas" },
         { Elements.N2, "nitrogen gas" },
         { Elements.Fe, "iron" },
+        { Elements.C, "carbon" },
         { Elements.None, "None" }
     };
 
