@@ -8,7 +8,9 @@ public enum EventType
     LeftWristDownActivated,
     LeftWristDownDeactivated,
     PinchSelectorSelected,
-    PinchSelectorUnselected
+    PinchSelectorUnselected,
+    SwipeForwardActivated,
+    SwipeForwardDeactivated
 }
 
 public class EventManager : MonoBehaviour

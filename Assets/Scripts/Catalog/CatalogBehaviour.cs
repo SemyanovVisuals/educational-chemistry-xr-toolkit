@@ -5,6 +5,7 @@ public class CatalogBehaviour : MonoBehaviour
 {
     private static Dictionary<string,GameObject> _cachedPrefabs = new Dictionary<string, GameObject>();
 
+    [SerializeField] private GameObject _swipeForwardTarget;
     [SerializeField] private List<string> _unlockedEntities;
 
     private List<GameObject> _entities;
@@ -15,6 +16,8 @@ public class CatalogBehaviour : MonoBehaviour
     {
         LoadPrefabs();
         _entities[_currentEntityIndex].SetActive(true);
+
+        EventManager.StartListening(EventType.SwipeForwardActivated, SwipeForwardActivated);
     }
 
     private void LoadPrefabs()
@@ -26,6 +29,7 @@ public class CatalogBehaviour : MonoBehaviour
             entity.transform.localPosition = Vector3.zero;
             entity.transform.localScale = entity.transform.localScale * 0.5f;
             entity.AddComponent<Hologram>();
+            entity.AddComponent<Swipeable>();
             entity.SetActive(false);
             _entities.Add(entity);
         }
@@ -43,5 +47,15 @@ public class CatalogBehaviour : MonoBehaviour
             _cachedPrefabs.Add(prefabName, prefab);
             return prefab;
         }
+    }
+
+    private void SwipeForwardActivated(System.Object obj)
+    {
+        if(!gameObject.activeSelf) return;
+
+        Debug.Log("SwipeForwardActivated");
+        _entities[_currentEntityIndex].GetComponent<Swipeable>().SwipeOut(_swipeForwardTarget);
+        _currentEntityIndex = (_currentEntityIndex + 1) % _entities.Count;
+        _entities[_currentEntityIndex].SetActive(true);
     }
 }
