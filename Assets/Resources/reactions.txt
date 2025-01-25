@@ -1,2 +1,7 @@
 2 H2 + O2 -> 2 H2O
 3 H2 + N2 -> 2 NH3
+C + O2 -> CO2
+4 Fe + 3 O2 -> 2 Fe2O3
+N2 + O2 -> 2 NO
+CO2 + 4 H2 -> CH4 + 2 H2O
+CH4 + NH3 -> HCN + 3 H2

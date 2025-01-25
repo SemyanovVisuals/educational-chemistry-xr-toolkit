@@ -135,7 +135,7 @@ public class ChemicalReactionDatabase : MonoBehaviour
             return Map[reactant1][reactant2];
         }
 
-        Debug.LogError("Reaction not found!");
+        Debug.Log("Reaction not found!");
         return null;
     }
 }
