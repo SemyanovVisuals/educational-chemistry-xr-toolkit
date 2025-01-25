@@ -128,13 +128,14 @@ public class ChemicalEntity : MonoBehaviour
         if (other.GetComponentInParent<ChemicalEntity>() != null)
         {
             isColliding = true;
-            collidingChemEntity = other.transform.parent.gameObject;
+            collidingChemEntity = other.GetComponentInParent<ChemicalEntity>().gameObject;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponentInParent<ChemicalEntity>() != null && collidingChemEntity == other.transform.parent.gameObject)
+        if (other.GetComponentInParent<ChemicalEntity>() != null && 
+            collidingChemEntity == other.GetComponentInParent<ChemicalEntity>().gameObject)
         {
             isColliding = false;
             collidingChemEntity = null;
@@ -143,13 +144,17 @@ public class ChemicalEntity : MonoBehaviour
 
     void Update()
     {
-        if (isColliding && !isGrabbed && !collidingChemEntity.GetComponent<ChemicalEntity>().isGrabbed)
+        if (isColliding && !isGrabbed)
         {
-            OnReactionTriggered?.Invoke(this, collidingChemEntity.GetComponent<ChemicalEntity>());
-            // Debug.Log("INVOKE TRIGGER");
+            if (collidingChemEntity != null && !collidingChemEntity.GetComponent<ChemicalEntity>().isGrabbed)
+            {
+                OnReactionTriggered?.Invoke(this, collidingChemEntity.GetComponent<ChemicalEntity>());
+                // Debug.Log("INVOKE TRIGGER");
+                
+                isColliding = false; // Ensure this is reset to avoid repeated calls
+                collidingChemEntity = null;
+            }
             
-            isColliding = false; // Ensure this is reset to avoid repeated calls
-            collidingChemEntity = null;
         }
         
     }
