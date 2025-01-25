@@ -2,8 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
+[Serializable]
 public enum EventType
 {
+    LeftWristDownActivated,
+    LeftWristDownDeactivated,
     PinchSelectorSelected,
     PinchSelectorUnselected
 }
