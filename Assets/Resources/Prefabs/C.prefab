@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 639fac926d10215448709ab2f07eaaea, type: 2}
+  - {fileID: 2100000, guid: 79fdeb4aa2eb5f842b90c3531045f606, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -551,7 +551,6 @@ MonoBehaviour:
   coefficient: 1
   coefficientText: {fileID: 2257501287211933413}
   formulaNameText: {fileID: 3026270727261043074}
-  reactionUIManager: {fileID: 0}
 --- !u!114 &720648838499790356
 MonoBehaviour:
   m_ObjectHideFlags: 0

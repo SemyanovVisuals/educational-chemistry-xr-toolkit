@@ -35,7 +35,7 @@ public class ChemicalEntity : MonoBehaviour
         HCN,
         CH4,
         NO,
-        Fe2​O3
+        Fe2O3
     }
     
     // Dictionary for Basic Entities
@@ -55,7 +55,7 @@ public class ChemicalEntity : MonoBehaviour
         { Compounds.H2O, "water" },
         { Compounds.NH3, "ammonia" },
         { Compounds.CO2, "carbon dioxide" },
-        { Compounds.Fe2​O3, "iron oxide" },
+        { Compounds.Fe2O3, "iron oxide" },
         { Compounds.NO, "nitric oxide" },
         { Compounds.CH4, "methane" },
         { Compounds.HCN, "cyanide" },
