@@ -860,14 +860,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: 0
-  element: 4
+  element: 5
   compound: 0
   formula: 
   name: 
   coefficient: 1
   coefficientText: {fileID: 1462665562467694924}
   formulaNameText: {fileID: 971706747797428338}
-  reactionUIManager: {fileID: 0}
 --- !u!114 &2149009006449374824
 MonoBehaviour:
   m_ObjectHideFlags: 0

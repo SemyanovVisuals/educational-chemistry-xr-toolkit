@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 4511012990944476207}
   - component: {fileID: 589904603615868877}
   - component: {fileID: 7034914115240532610}
+  - component: {fileID: 1353021621311109288}
   m_Layer: 0
   m_Name: H2O
   m_TagString: Untagged
@@ -671,7 +672,67 @@ MonoBehaviour:
   coefficient: 1
   coefficientText: {fileID: 7532193618543106117}
   formulaNameText: {fileID: 9204714675953594971}
-  reactionUIManager: {fileID: 0}
+--- !u!114 &1353021621311109288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125457903330056745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableView: {fileID: 589904603615868877}
+  _whenHover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnhover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7034914115240532610}
+        m_TargetAssemblyTypeName: ChemicalEntity, Assembly-CSharp
+        m_MethodName: UpdateGrabbed
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _whenUnselect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7034914115240532610}
+        m_TargetAssemblyTypeName: ChemicalEntity, Assembly-CSharp
+        m_MethodName: UpdateGrabbed
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _whenInteractorViewAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenInteractorViewRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectingInteractorViewAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectingInteractorViewRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6048925171333436398
 GameObject:
   m_ObjectHideFlags: 0
