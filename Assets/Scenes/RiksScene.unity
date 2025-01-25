@@ -1550,7 +1550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &148884443
 Transform:
   m_ObjectHideFlags: 0
@@ -10294,8 +10294,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 817161495}
+  - component: {fileID: 817161496}
   m_Layer: 0
-  m_Name: WatchEntityMenu
+  m_Name: WatchCatalog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10317,6 +10318,22 @@ Transform:
   - {fileID: 148884443}
   m_Father: {fileID: 543450652939205511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &817161496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817161494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc33fda66f992947bbdf77f59fe8581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unlockedEntities:
+  - Fe2O3
+  - C
+  - Fe
 --- !u!1 &817724006
 GameObject:
   m_ObjectHideFlags: 0
