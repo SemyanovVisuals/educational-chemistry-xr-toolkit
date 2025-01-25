@@ -7868,6 +7868,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reactionUIManager: {fileID: 676717243}
+  reactionGameManager: {fileID: 0}
+  availableElements: []
+  creatableCompounds: []
+  unlockedCompounds: []
+  unlockedEntities: []
 --- !u!114 &629170531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7880,7 +7885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89828cd2be460e24d9bb3b186107d5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: reactions.txt
   reactionsFile: {fileID: 4900000, guid: 2ff2608403761c34dbbc01c0a5a9d07a, type: 3}
 --- !u!1 &629718301
 GameObject:
