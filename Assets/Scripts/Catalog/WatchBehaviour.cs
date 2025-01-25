@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class WatchBehaviour : MonoBehaviour
 {
+    [SerializeField] private GameObject _entityMenu;
+
     private const float _alphaActivated = 1f;
     private const float _alphaDeactivated = 0.1f;
 
@@ -14,6 +16,8 @@ public class WatchBehaviour : MonoBehaviour
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
 
         EventManager.StartListening(EventType.PinchSelectorSelected, ToggleActive);
+        EventManager.StartListening(EventType.LeftWristDownActivated, LeftWristDownActivated);
+        EventManager.StartListening(EventType.LeftWristDownDeactivated, LeftWristDownDeactivated);
     }
 
     private void ToggleActive(System.Object obj)
@@ -35,6 +39,16 @@ public class WatchBehaviour : MonoBehaviour
             }
             meshRenderer.materials = materials;
         }
+    }
+
+    private void LeftWristDownActivated(System.Object obj)
+    {
+        _entityMenu.SetActive(_isActive);
+    }
+
+    private void LeftWristDownDeactivated(System.Object obj)
+    {
+        _entityMenu.SetActive(false);
     }
 
 
