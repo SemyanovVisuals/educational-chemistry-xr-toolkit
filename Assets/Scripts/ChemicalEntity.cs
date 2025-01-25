@@ -142,7 +142,7 @@ public class ChemicalEntity : MonoBehaviour
         }
     }
 
-    void Update()
+    void UpdateX()
     {
         if (isColliding && !isGrabbed)
         {
