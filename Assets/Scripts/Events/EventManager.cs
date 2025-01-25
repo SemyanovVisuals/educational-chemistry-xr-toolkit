@@ -9,6 +9,8 @@ public enum EventType
     LeftWristDownDeactivated,
     PinchSelectorSelected,
     PinchSelectorUnselected,
+    RightPalmUpActivated,
+    RightPalmUpDeactivated,
     SwipeForwardActivated,
     SwipeForwardDeactivated
 }
