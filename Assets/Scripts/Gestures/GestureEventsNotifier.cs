@@ -5,13 +5,13 @@ public class GestureEventsNotifier : MonoBehaviour
     [SerializeField] private EventType _activatedEvent;
     [SerializeField] private EventType _deactivatedEvent;
 
-    public void OnActivated()
+    public void OnActivated(Object obj)
     {
-        EventManager.TriggerEvent(_activatedEvent);
+        EventManager.TriggerEvent(_activatedEvent, obj);
     }
 
-    public void OnDeactivated()
+    public void OnDeactivated(Object obj)
     {
-        EventManager.TriggerEvent(_deactivatedEvent);
+        EventManager.TriggerEvent(_deactivatedEvent, obj);
     }
 }

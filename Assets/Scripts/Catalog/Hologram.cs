@@ -78,6 +78,9 @@ public class Hologram : MonoBehaviour
         {
             rotationObject.enabled = false;
         }
+
+        ChemicalEntity chemicalEntity = GetComponentInChildren<ChemicalEntity>();
+        chemicalEntity.enabled = false;
     }
 
     private void Update()
