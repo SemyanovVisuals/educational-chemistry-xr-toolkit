@@ -606,7 +606,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4480734919148825167}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 590f08f7ae521c94cb761838c1cf8ea9, type: 3}
   m_Name: 
@@ -786,7 +786,6 @@ MonoBehaviour:
   coefficient: 1
   coefficientText: {fileID: 2257501287211933413}
   formulaNameText: {fileID: 3026270727261043074}
-  reactionUIManager: {fileID: 0}
 --- !u!114 &720648838499790356
 MonoBehaviour:
   m_ObjectHideFlags: 0
