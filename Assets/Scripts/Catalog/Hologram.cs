@@ -27,6 +27,16 @@ public class Hologram : MonoBehaviour
     
     private void StartHologramify()
     {
+        Material material = Resources.Load<Material>("Materials/HologramShader");
+        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.material = material;
+        }
+    }
+
+    private void StartHologramifyV1()
+    {
         _startColor = Color.Lerp(Color.red, Color.yellow, Random.Range(0.0f, 1.0f));
         _endColor = Color.Lerp(Color.blue, Color.green, Random.Range(0.0f, 1.0f));
         
@@ -104,9 +114,17 @@ public class Hologram : MonoBehaviour
 
     private void Update()
     {
-        // transform.up = transform.parent.forward;
+        UpdateRotate();
+        // UpdateRenderMesh();
+    }
+
+    private void UpdateRotate()
+    {
         transform.Rotate(transform.forward, -50.0f*Time.deltaTime);
-        
+    }
+
+    private void UpdateRenderMesh()
+    {
         // just return randomly 2 out of 3 to create flickering effect
         if (UnityEngine.Random.Range(0, 100) < 10) return;
 
