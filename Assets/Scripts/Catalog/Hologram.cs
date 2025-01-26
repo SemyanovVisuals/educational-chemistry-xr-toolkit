@@ -19,6 +19,9 @@ public class Hologram : MonoBehaviour
         StartHologramify();
         StartHideCanvases();
         StartRemoveInteractors();
+        StartRemoveRotation();
+        StartRemoveColliders();
+        StartDisableChemicalEntity();
         // transform.up = transform.parent.forward;
     }
     
@@ -72,12 +75,28 @@ public class Hologram : MonoBehaviour
         {
             grabInteractable.enabled = false;
         }
+    }
 
+    private void StartRemoveColliders()
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    private void StartRemoveRotation()
+    {
         RotationObjects[] rotationObjects = GetComponentsInChildren<RotationObjects>();
         foreach (RotationObjects rotationObject in rotationObjects)
         {
             rotationObject.enabled = false;
         }
+    }
+
+    private void StartDisableChemicalEntity()
+    {
 
         ChemicalEntity chemicalEntity = GetComponentInChildren<ChemicalEntity>();
         chemicalEntity.enabled = false;
