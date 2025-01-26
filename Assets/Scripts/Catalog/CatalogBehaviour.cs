@@ -43,7 +43,7 @@ public class CatalogBehaviour : MonoBehaviour
         }
     }
 
-    private static GameObject GetPrefabByName(string prefabName)
+    public static GameObject GetPrefabByName(string prefabName)
     {
         if (_cachedPrefabs.ContainsKey(prefabName))
         {
@@ -78,10 +78,15 @@ public class CatalogBehaviour : MonoBehaviour
         Debug.Log("RightPalmUpActivated");
         string currentlySelectedEntity = _entities[_currentEntityIndex].name;
         GameObject entity = Instantiate(GetPrefabByName(currentlySelectedEntity));
+        entity.name = currentlySelectedEntity;
         entity.transform.position = _entities[_currentEntityIndex].transform.position;
-        // entity.transform.up = Vector3.up;
 
         GameObject target = (GameObject) obj;
         entity.AddComponent<Summonable>().ToTarget(target.transform.position+_summonOffset);
+        if(!entity.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            rb = entity.AddComponent<Rigidbody>();
+        }
+        // rb.isKinematic = false;
     }
 }
