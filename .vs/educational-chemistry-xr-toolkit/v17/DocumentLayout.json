@@ -1,0 +1,99 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|c:\\users\\bcu\\documents\\github\\educational-chemistry-xr-toolkit\\assets\\scripts\\reactionuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\reactionuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\assets\\scripts\\chemicalentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C08A745-274A-66DB-D0F0-BB6F07939EC6}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\chemicalentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\BlackBoardManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\BlackBoardManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReactionUIManager.cs",
+              "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ReactionUIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ReactionUIManager.cs",
+              "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ReactionUIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ReactionUIManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T20:01:13.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BlackBoardManager.cs",
+              "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\BlackBoardManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BlackBoardManager.cs",
+              "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\BlackBoardManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BlackBoardManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T19:51:22.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
+              "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameManager.cs",
+              "ViewState": "AQIAAKoAAAAAAAAAAAAIwAYAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T23:33:08.884Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ChemicalEntity.cs",
+              "DocumentMoniker": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ChemicalEntity.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ChemicalEntity.cs",
+              "ToolTip": "C:\\Users\\BCU\\Documents\\GitHub\\educational-chemistry-xr-toolkit\\Assets\\Scripts\\ChemicalEntity.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ChemicalEntity.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAAwwGUAAAAJAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD9SURBVDhP7Y\u002B9asJgGIWfRD6LEPACCgWhQeykEKSjY8gFxD8QHMS1t\u002BFgcXFz6FakSG/AG9BOksUM0qHtUhqKkEmQ16H1Q6Q0uPtMB87hvOeFM5rF20JaTy0pDApi39tSH9dl70XrSPKDvBxrAAMgeA\u002BkNqlRvizTLrbJXmRZfi2plqpGtI7EGTn7vCadShPehQYAneeOeA\u002BexHGsmw/5b4EJMP\u002BY4167WJb103gCJoAyFcpUxx78XnRGDpvthlw/p/XhCprjpviP/p/zSXjBAJi9zqQxaeDaLv6Nj0opgs\u002BA7m038SUdmIZTGb4MWX2vyKgMlasKPa\u002BXWHAGdt/Acu2QGdhLAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-01-22T22:56:01.884Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1446,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
