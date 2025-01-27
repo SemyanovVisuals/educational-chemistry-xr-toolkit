@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -157,7 +158,9 @@ public class GameManager : MonoBehaviour
                             // If all compounds are unlocked, show "Game Completed" message
                             if (unlockedCompounds.Count == creatableCompounds.Count)
                             {
-                                reactionGameManager.DisplayReactionText("Game Completed!");
+                                //reactionUIManager.DisplayReactionText("Game Completed!");
+                                Debug.Log("1Game Completed!");
+                                StartCoroutine(DisplayGameCompletedWithDelay(3f));
                             }
                         }
                     }
@@ -182,7 +185,14 @@ public class GameManager : MonoBehaviour
         
         
     }
-    
+    private IEnumerator DisplayGameCompletedWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        reactionUIManager.DisplayReactionText("Game Completed!");
+       
+    }
+
+
     private Vector3 CalculateOffsetPosition(Vector3 referencePosition, GameObject entityToAvoid, float offsetDistance = 0.15f)
     {
         Vector3 offsetPosition = referencePosition + new Vector3(offsetDistance, 0, 0);  // Adjust the offset to avoid overlap

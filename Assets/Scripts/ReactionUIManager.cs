@@ -8,6 +8,12 @@ public class ReactionUIManager : MonoBehaviour
 
     private Coroutine fadeCoroutine;
 
+    [SerializeField] private string introText = "Welcome to the Game!";
+    private void Start()
+    {
+        DisplayReactionText(introText);
+    }
+
     public void DisplayReactionText(string reactionText)
     {
         // Stop any existing fade coroutine to avoid overlap
