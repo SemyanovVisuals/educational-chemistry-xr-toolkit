@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Oculus.Interaction;
 using TMPro;
 using UnityEngine;
 
@@ -87,6 +88,11 @@ public class CatalogBehaviour : MonoBehaviour
         {
             rb = entity.AddComponent<Rigidbody>();
         }
-        // rb.isKinematic = false;
+        entity.AddComponent<VelocityBrake>();
+        if(entity.TryGetComponent<InteractableUnityEventWrapper>(out InteractableUnityEventWrapper interactableUnityEventWrapper))
+        {
+            interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
+        }
+        rb.isKinematic = false;
     }
 }
