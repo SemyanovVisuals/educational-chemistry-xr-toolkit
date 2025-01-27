@@ -16,12 +16,13 @@ public class Hologram : MonoBehaviour
 
     private void Start()
     {
-        StartHologramify();
+        // StartHologramify();
         StartHideCanvases();
         StartRemoveInteractors();
         StartRemoveRotation();
         StartRemoveColliders();
         StartDisableChemicalEntity();
+        StartDisableTTSInteraction();
         // transform.up = transform.parent.forward;
     }
     
@@ -112,6 +113,14 @@ public class Hologram : MonoBehaviour
         chemicalEntity.enabled = false;
     }
 
+    private void StartDisableTTSInteraction()
+    {
+        if(TryGetComponent<InteractableUnityEventWrapper>(out InteractableUnityEventWrapper interactableUnityEventWrapper))
+        {
+            interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
+        }
+    }
+
     private void Update()
     {
         UpdateRotate();
@@ -120,7 +129,7 @@ public class Hologram : MonoBehaviour
 
     private void UpdateRotate()
     {
-        transform.Rotate(transform.forward, -50.0f*Time.deltaTime);
+        transform.Rotate(0, 0, -50.0f * Time.deltaTime);
     }
 
     private void UpdateRenderMesh()
