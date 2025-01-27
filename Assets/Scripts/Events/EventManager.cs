@@ -5,6 +5,7 @@ using System;
 [Serializable]
 public enum EventType
 {
+    EntityUnlocked,
     LeftWristDownActivated,
     LeftWristDownDeactivated,
     PinchSelectorSelected,
@@ -19,7 +20,7 @@ public class EventManager : MonoBehaviour
 {
     private static EventManager _eventManager;
 
-    private Dictionary<EventType, Action<System.Object>> _listeners;
+    private Dictionary<EventType, List<Action<System.Object>>> _listeners;
     
     private static EventManager Instance
     {
@@ -41,31 +42,33 @@ public class EventManager : MonoBehaviour
     {
         if (_listeners == null)
         {
-            _listeners = new Dictionary<EventType, Action<System.Object>>();
+            _listeners = new Dictionary<EventType, List<Action<System.Object>>>();
         }
     }
 
     public static void StartListening(EventType eventType, Action<System.Object> listener)
     {
-        if (!Instance._listeners.TryAdd(eventType, listener))
+        if (!Instance._listeners.ContainsKey(eventType))
         {
-            Instance._listeners[eventType] += listener;
+            Instance._listeners.Add(eventType, new List<Action<System.Object>>());
         }
+        Instance._listeners[eventType].Add(listener);
     }
 
-    public static void StopListening(EventType eventType, Action<System.Object> listener)
-    {
-        if (Instance._listeners.ContainsKey(eventType))
-        {
-            Instance._listeners[eventType] -= listener;
-        }
-    }
+    // public static void StopListening(EventType eventType, Action<System.Object> listener)
+    // {
+    //     if (Instance._listeners.ContainsKey(eventType))
+    //     {
+    //         Instance._listeners[eventType] -= listener;
+    //     }
+    // }
     
     public static void TriggerEvent(EventType eventType, System.Object eventParam = null)
     {
-        if (Instance._listeners.TryGetValue(eventType, out Action<System.Object> action))
+        if (!Instance._listeners.ContainsKey(eventType)) return;
+        foreach (Action<System.Object> listener in Instance._listeners[eventType])
         {
-            action.Invoke(eventParam);
+            listener.Invoke(eventParam);
         }
     }
 }

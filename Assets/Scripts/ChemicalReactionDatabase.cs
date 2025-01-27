@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ public class ChemicalReactionDatabase : MonoBehaviour
 
     // Path to the text file (make sure this file exists in your Assets/Resources folder)
     public TextAsset reactionsFile;
+
+    // Declare a unique set of reactants
+    private static HashSet<string> _allKnownEntities = new HashSet<string>();
 
     void Awake()
     {
@@ -34,6 +38,10 @@ public class ChemicalReactionDatabase : MonoBehaviour
 
         // Log success
         Debug.Log("Map populated successfully!");
+        foreach (var entity in _allKnownEntities)
+        {
+            Debug.Log($"known Entity: {entity}");
+        }
         Debug.Log(MapToString());
     }
 
@@ -54,13 +62,16 @@ public class ChemicalReactionDatabase : MonoBehaviour
         {
             var (productCoefficient, product) = ParseCompound(productString.Trim());
             products[product] = productCoefficient;
+            _allKnownEntities.Add(product);
         }
 
         // Parse the LHS components (reactants)
         var lhsComponents = new List<(int coefficient, string compound)>();
         foreach (string component in lhs)
         {
-            lhsComponents.Add(ParseCompound(component.Trim()));
+            (int coefficient, string compound) = ParseCompound(component.Trim());
+            lhsComponents.Add((coefficient, compound));
+            _allKnownEntities.Add(compound);
         }
 
         // Add the reaction to the Map for each pair of LHS compounds
@@ -137,5 +148,10 @@ public class ChemicalReactionDatabase : MonoBehaviour
 
         Debug.Log("Reaction not found!");
         return null;
+    }
+
+    public static HashSet<string> GetAllKnownEntities()
+    {
+        return _allKnownEntities;
     }
 }

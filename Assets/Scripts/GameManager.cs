@@ -7,21 +7,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ReactionUIManager reactionUIManager;
     [SerializeField] private ReactionUIManager reactionGameManager;
 
-    [Header("Collected Data")]
-    [SerializeField] private List<string> availableElements = new List<string>(); // Names of elements available in the scene
-    [SerializeField] private List<string> creatableCompounds = new List<string>(); // Names of compounds that can be created
-    [SerializeField] private List<string> unlockedCompounds = new List<string>(); // Compounds unlocked by the user
+    // [Header("Collected Data")]
+    // [SerializeField] private List<string> availableElements = new List<string>(); // Names of elements available in the scene
+    // [SerializeField]
+    private List<string> creatableCompounds = new List<string>(); // Names of compounds that can be created
+    // [SerializeField]
+    private List<string> unlockedCompounds = new List<string>(); // Compounds unlocked by the user
 
-    [Header("Full Item List")]
+    // [Header("Full Item List")]
     [SerializeField] private List<string> unlockedEntities = new List<string>();
 
     private void Start()
     {
         // Collect the elements available in the scene
-        CollectAvailableElements();
+        // CollectAvailableElements();
 
         // Add unique available elements to unlockedEntities
-        AddAvailableElementsToUnlockedEntities();
+        // AddAvailableElementsToUnlockedEntities();
 
         // Calculate the compounds that can be created
         CalculatePossibleCompounds();
@@ -152,6 +154,7 @@ public class GameManager : MonoBehaviour
                             // Add the compound to the unlockedCompounds list
                             unlockedCompounds.Add(product);
                             unlockedEntities.Add(product); // Add to unlockedEntities as well
+                            EventManager.TriggerEvent(EventType.EntityUnlocked, product);
                             reactionGameManager.DisplayReactionText($"Unlocked Entities: {product}"); // Show unlocked compound
     
                             // If all compounds are unlocked, show "Game Completed" message
@@ -205,38 +208,38 @@ public class GameManager : MonoBehaviour
         reactionUIManager.DisplayReactionText(reactionText);
     }
 
-    private void CollectAvailableElements()
-    {
-        ChemicalEntity[] allEntities = FindObjectsOfType<ChemicalEntity>();
+    // private void CollectAvailableElements()
+    // {
+    //     ChemicalEntity[] allEntities = FindObjectsOfType<ChemicalEntity>();
 
-        foreach (var entity in allEntities)
-        {
-            if (entity.entity == ChemicalEntity.ChemEntity.Elements)
-            {
-                // Add the name of the element from the enum
-                string elementName = entity.element.ToString();
-                availableElements.Add(elementName);
-                Debug.Log($"Collected element: {elementName}");
-            }
-        }
+    //     foreach (var entity in allEntities)
+    //     {
+    //         if (entity.entity == ChemicalEntity.ChemEntity.Elements)
+    //         {
+    //             // Add the name of the element from the enum
+    //             string elementName = entity.element.ToString();
+    //             availableElements.Add(elementName);
+    //             Debug.Log($"Collected element: {elementName}");
+    //         }
+    //     }
 
-        Debug.Log($"Collected {availableElements.Count} available elements in the scene.");
-    }
+    //     Debug.Log($"Collected {availableElements.Count} available elements in the scene.");
+    // }
 
-    private void AddAvailableElementsToUnlockedEntities()
-    {
-        HashSet<string> uniqueElements = new HashSet<string>(availableElements);
-        unlockedEntities.AddRange(uniqueElements);
-        Debug.Log($"Added {uniqueElements.Count} unique elements to Unlocked Entities.");
-    }
+    // private void AddAvailableElementsToUnlockedEntities()
+    // {
+    //     HashSet<string> uniqueElements = new HashSet<string>(ChemicalReactionDatabase.GetAllKnownEntities());
+    //     unlockedEntities.AddRange(uniqueElements);
+    //     Debug.Log($"Added {uniqueElements.Count} unique elements to Unlocked Entities.");
+    // }
 
     private void CalculatePossibleCompounds()
     {
         HashSet<string> checkedPairs = new HashSet<string>();
 
-        foreach (var element1 in availableElements)
+        foreach (var element1 in ChemicalReactionDatabase.GetAllKnownEntities())
         {
-            foreach (var element2 in availableElements)
+            foreach (var element2 in ChemicalReactionDatabase.GetAllKnownEntities())
             {
                 if (element1 == element2) continue;
 
@@ -266,6 +269,11 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"Calculated {creatableCompounds.Count} possible compounds.");
+    }
+
+    public List<string> GetUnlockedEntities()
+    {
+        return unlockedEntities;
     }
 
     private void RefreshInspectorLists()
