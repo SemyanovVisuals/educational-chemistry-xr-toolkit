@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 589904603615868877}
   - component: {fileID: 7034914115240532610}
   - component: {fileID: 1353021621311109288}
+  - component: {fileID: -22852984839959614}
   m_Layer: 0
   m_Name: H2O
   m_TagString: Untagged
@@ -687,7 +688,19 @@ MonoBehaviour:
   _interactableView: {fileID: 589904603615868877}
   _whenHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 423280505447171187, guid: caa6fbc14bd318d4abbc15fc8f7c6a26, type: 3}
+        m_TargetAssemblyTypeName: TTSHandler, Assembly-CSharp
+        m_MethodName: Speak
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4125457903330056745}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenUnhover:
     m_PersistentCalls:
       m_Calls: []
@@ -733,6 +746,20 @@ MonoBehaviour:
   _whenSelectingInteractorViewRemoved:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-22852984839959614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125457903330056745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0969378f73f22154a882d6ebdb8fc5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableUnityEventWrapper: {fileID: 0}
+  ttsHandler: {fileID: 0}
 --- !u!1 &6048925171333436398
 GameObject:
   m_ObjectHideFlags: 0

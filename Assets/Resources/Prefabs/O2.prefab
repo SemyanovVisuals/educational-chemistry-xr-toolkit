@@ -730,6 +730,7 @@ GameObject:
   - component: {fileID: 7730566344279239348}
   - component: {fileID: 4828516252508456008}
   - component: {fileID: 1497286954841012273}
+  - component: {fileID: 4947663372812283783}
   m_Layer: 0
   m_Name: O2
   m_TagString: Untagged
@@ -903,7 +904,19 @@ MonoBehaviour:
   _interactableView: {fileID: 7730566344279239348}
   _whenHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 423280505447171187, guid: caa6fbc14bd318d4abbc15fc8f7c6a26, type: 3}
+        m_TargetAssemblyTypeName: TTSHandler, Assembly-CSharp
+        m_MethodName: Speak
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7544531743339668256}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenUnhover:
     m_PersistentCalls:
       m_Calls: []
@@ -949,6 +962,20 @@ MonoBehaviour:
   _whenSelectingInteractorViewRemoved:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4947663372812283783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544531743339668256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0969378f73f22154a882d6ebdb8fc5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableUnityEventWrapper: {fileID: 0}
+  ttsHandler: {fileID: 0}
 --- !u!1 &8488690534980346479
 GameObject:
   m_ObjectHideFlags: 0
