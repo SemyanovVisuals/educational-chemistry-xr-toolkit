@@ -82,17 +82,20 @@ public class CatalogBehaviour : MonoBehaviour
         entity.name = currentlySelectedEntity;
         entity.transform.position = _entities[_currentEntityIndex].transform.position;
 
+        if(entity.TryGetComponent<InteractableUnityEventWrapper>(out InteractableUnityEventWrapper interactableUnityEventWrapper))
+        {
+            interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
+            interactableUnityEventWrapper.WhenUnhover.RemoveAllListeners();
+        }
+
         GameObject target = (GameObject) obj;
         entity.AddComponent<Summonable>().ToTarget(target.transform.position+_summonOffset);
+
         if(!entity.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
             rb = entity.AddComponent<Rigidbody>();
         }
         entity.AddComponent<VelocityBrake>();
-        if(entity.TryGetComponent<InteractableUnityEventWrapper>(out InteractableUnityEventWrapper interactableUnityEventWrapper))
-        {
-            interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
-        }
         rb.isKinematic = false;
     }
 }
