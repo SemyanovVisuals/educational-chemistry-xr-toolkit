@@ -12,6 +12,11 @@ public class Summonable : MonoBehaviour
         Debug.Log($"EntitySummon:ToTarget:{_summoning} {transform.position} {_targetPosition}");
     }
 
+    public bool IsSummoning()
+    {
+        return _summoning;
+    }
+
     private void Update()
     {
         if(_targetPosition == Vector3.zero || !_summoning) return;

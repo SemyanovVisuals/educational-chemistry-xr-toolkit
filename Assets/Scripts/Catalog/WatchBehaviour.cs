@@ -33,6 +33,8 @@ public class WatchBehaviour : MonoBehaviour
             Material[] materials = meshRenderer.materials;
             foreach (Material material in materials)
             {
+                if (!material.HasProperty("_BaseColor")) continue;
+
                 Color color = material.GetColor("_BaseColor");
                 color.a = alpha;
                 material.SetColor("_BaseColor", color);

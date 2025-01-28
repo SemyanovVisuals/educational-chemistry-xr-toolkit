@@ -110,6 +110,7 @@ public class ChemicalReactionDatabase : MonoBehaviour
     private string MapToString()
     {
         var result = new System.Text.StringBuilder();
+        result.AppendLine("Map/database:");
         foreach (var reactant1 in Map)
         {
             result.AppendLine($"Reactant1: {reactant1.Key}");
@@ -135,7 +136,38 @@ public class ChemicalReactionDatabase : MonoBehaviour
             return Map[reactant1][reactant2];
         }
 
-        Debug.Log("Reaction not found!");
         return null;
+    }
+
+    // Retrieve the list of all entities supported by the database (reactants and/or products) for debugging
+    public static List<string> GetAllEntities()
+    {
+        var entities = new List<string>();
+        
+        foreach (var reactant1 in Map.Keys)
+        {
+            if (!entities.Contains(reactant1))
+            {
+                entities.Add(reactant1);
+            }
+
+            foreach (var reactant2 in Map[reactant1].Keys)
+            {
+                if (!entities.Contains(reactant2))
+                {
+                    entities.Add(reactant2);
+                }
+
+                foreach (var product in Map[reactant1][reactant2].First().products.Keys)
+                {
+                    if (!entities.Contains(product))
+                    {
+                        entities.Add(product);
+                    }
+                }
+            }
+        }
+
+        return entities;
     }
 }
