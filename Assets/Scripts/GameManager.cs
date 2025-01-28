@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<string> allEntities = new List<string>(); // Names of all entities supported by app 
     [SerializeField] private List<string> unlockedEntities = new List<string>();
 
+    private HashSet<string> lastQuery;
+
     private void Start()
     {
         // Load Entities Lists
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
                 var reaction = reactions[0];
                 int numProducts = reaction.products.Count;
                 string reactionText;
+                string hintText;
                 
                 // Check if coefficients are sufficient
                 if (firstEntity.coefficient >= reaction.coefficients.Item1 &&
@@ -133,8 +136,15 @@ public class GameManager : MonoBehaviour
                         productInstance2.GetComponent<ChemicalEntity>().coefficient = product2.Value;
                         productInstance2.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
                     }
+                    
+                    var reactionQuery = new HashSet<string>
+                    {
+                        firstEntity.formula,
+                        secondEntity.formula,
+                        "Reaction"
+                    };
 
-                    UpdateReactionUI(reactionText);
+                    UpdateReactionUI(reactionText, reactionQuery);
                     
                     // Update unlocked entities list
                     foreach (var product in reactions[0].products.Keys.ToList())
@@ -142,7 +152,6 @@ public class GameManager : MonoBehaviour
                         if (!unlockedEntities.Contains(product))
                         {
                             unlockedEntities.Add(product);
-                            //reactionGameManager.DisplayReactionText("New Entity Unlocked!");
                             banner.SetNotificationText($"New Entity Unlocked:\n{product}");
                             banner.gameObject.SetActive(true);
                         }
@@ -158,10 +167,18 @@ public class GameManager : MonoBehaviour
                 }
                 
                 // If no reaction could proceed due to insufficient coefficients, send a hint to the user
-                reactionText = $"To initiate a {(numProducts == 1 ? "Combination" : "Replacement")} Reaction:\n";
-                reactionText += reaction.coefficients.Item1.ToString() + " x " + firstEntity.formula + "\n";
-                reactionText += reaction.coefficients.Item2.ToString() + " x " + secondEntity.formula;
-                UpdateReactionUI(reactionText);
+                hintText = $"To initiate a {(numProducts == 1 ? "Combination" : "Replacement")} Reaction:\n";
+                hintText += reaction.coefficients.Item1.ToString() + " x " + firstEntity.formula + "\n";
+                hintText += reaction.coefficients.Item2.ToString() + " x " + secondEntity.formula;
+                
+                var hintQuery = new HashSet<string>
+                {
+                    firstEntity.formula,
+                    secondEntity.formula,
+                    "Hint"
+                };
+
+                UpdateReactionUI(hintText, hintQuery);
             }
             else
             {
@@ -173,7 +190,8 @@ public class GameManager : MonoBehaviour
     private  IEnumerator DisplayGameCompletedWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        reactionUIManager.DisplayReactionText("Game Completed!");
+        reactionUIManager.DisplayReactionText("Game completed!\n\n" +
+                                              "All chemical entities unlocked.");
     }
 
     private Vector3 CalculateOffsetPosition(Vector3 referencePosition, GameObject entityToAvoid, float offsetDistance = 0.15f)
@@ -193,9 +211,14 @@ public class GameManager : MonoBehaviour
         return offsetPosition;
     }
     
-    private void UpdateReactionUI(string reactionText)
+    private void UpdateReactionUI(string reactionText, HashSet<string> printQuery)
     {
-        reactionUIManager.DisplayReactionText(reactionText);
+        // Repetition check
+        if (lastQuery == null || !printQuery.SetEquals(lastQuery))
+        {
+            reactionUIManager.DisplayReactionText(reactionText);
+        }
+        lastQuery = printQuery;
     }
     
     // Load all supported entities from database
