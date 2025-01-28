@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _positiveFeedbackParticles;
+    [SerializeField] private ParticleSystem _negativeFeedbackParticles;
     [SerializeField] private ReactionUIManager reactionUIManager;
     [SerializeField] private ReactionUIManager reactionGameManager;
 
@@ -161,10 +163,12 @@ public class GameManager : MonoBehaviour
                         // TODO: Add Notification to the Board: "Game Completed!"
                     }
                     
+                    ShowPositiveFeedback(firstEntity.transform.position);
                     return; // Stop after processing the reaction
                 }
                 
                 // If no reaction could proceed due to insufficient coefficients, send a hint to the user
+                ShowNegativeFeedback(firstEntity.transform.position);
                 reactionText = $"To initiate a {(numProducts == 1 ? "Combination" : "Replacement")} Reaction:\n";
                 reactionText += reaction.coefficients.Item1.ToString() + " x " + firstEntity.formula + "\n";
                 reactionText += reaction.coefficients.Item2.ToString() + " x " + secondEntity.formula;
@@ -178,6 +182,18 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    private void ShowPositiveFeedback(Vector3 position)
+    {
+        _positiveFeedbackParticles.transform.position = position;
+        _positiveFeedbackParticles.Play();
+    }
+
+    private void ShowNegativeFeedback(Vector3 position)
+    {
+        _negativeFeedbackParticles.transform.position = position;
+        _negativeFeedbackParticles.Play();
+    }
+
     private Vector3 CalculateOffsetPosition(Vector3 referencePosition, GameObject entityToAvoid, float offsetDistance = 0.15f)
     {
         Vector3 offsetPosition = referencePosition + new Vector3(offsetDistance, 0, 0);  // Adjust the offset to avoid overlap
