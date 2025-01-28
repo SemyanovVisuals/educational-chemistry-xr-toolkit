@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnlockedBoardBehaviour : MonoBehaviour
+public class UnlockedBoardBehaviour : PrefabMunger
 {
-    // [SerializeField]
-    // private List<string> _allEntities;
-    // [SerializeField]
-    // private List<string> _unlockedEntities;
     [SerializeField] private Transform _entitiesHandle;
 
     [SerializeField] private int _entitiesPerRow = 3;
@@ -15,7 +11,7 @@ public class UnlockedBoardBehaviour : MonoBehaviour
 
     private Dictionary<string,GameObject> _entities = new Dictionary<string,GameObject>();
     private GameManager _gameManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         _gameManager = FindFirstObjectByType<GameManager>();
@@ -47,7 +43,12 @@ public class UnlockedBoardBehaviour : MonoBehaviour
                 _currentColumn++;
             }
 
-            StartRemoveRotation(entity);
+            RemoveInteractors(entity);
+            RemoveRotation(entity);
+            RemoveColliders(entity);
+            DisableChemicalEntity(entity);
+            DisableTTSInteraction(entity);
+
             StartShowUnlockedState(entity);
 
             _entities.Add(entity.name, entity);
@@ -62,15 +63,6 @@ public class UnlockedBoardBehaviour : MonoBehaviour
         if(_entities.ContainsKey(entityName))
         {
             StartShowUnlockedState(_entities[entityName]);
-        }
-    }
-
-    private void StartRemoveRotation(GameObject entity)
-    {
-        RotationObjects[] rotationObjects = entity.GetComponentsInChildren<RotationObjects>();
-        foreach (RotationObjects rotationObject in rotationObjects)
-        {
-            rotationObject.enabled = false;
         }
     }
 
@@ -110,35 +102,6 @@ public class UnlockedBoardBehaviour : MonoBehaviour
             }
         }
 
-        // RectTransform[] rectTransforms = gameObject.GetComponentsInChildren<RectTransform>();
-        // foreach (RectTransform rectTransform in rectTransforms)
-        // {
-        //     Vector3[] corners = new Vector3[4];
-        //     rectTransform.GetWorldCorners(corners);
-
-        //     Bounds bounds = new(corners[0], Vector3.zero);
-        //     for (int i = 1; i < corners.Length; i++)
-        //     {
-        //         bounds.Encapsulate(corners[i]);
-        //     }
-
-        //     totalBounds.Encapsulate(bounds);
-        // }
-        // Vector3[] corners = new Vector3[4];
-        // rectTransform.GetWorldCorners(corners);
-
-        // Bounds bounds = new Bounds(corners[0], Vector3.zero);
-        // for (int i = 1; i < corners.Length; i++)
-        // {
-        //     bounds.Encapsulate(corners[i]);
-        // }
-
         return totalBounds;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
