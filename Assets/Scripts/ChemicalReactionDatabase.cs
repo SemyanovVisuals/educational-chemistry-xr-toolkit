@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,9 +13,6 @@ public class ChemicalReactionDatabase : MonoBehaviour
 
     // Path to the text file (make sure this file exists in your Assets/Resources folder)
     public TextAsset reactionsFile;
-
-    // Declare a unique set of reactants
-    private static HashSet<string> _allKnownEntities = new HashSet<string>();
 
     void Awake()
     {
@@ -38,10 +34,6 @@ public class ChemicalReactionDatabase : MonoBehaviour
 
         // Log success
         Debug.Log("Map populated successfully!");
-        foreach (var entity in _allKnownEntities)
-        {
-            Debug.Log($"known Entity: {entity}");
-        }
         Debug.Log(MapToString());
     }
 
@@ -62,16 +54,13 @@ public class ChemicalReactionDatabase : MonoBehaviour
         {
             var (productCoefficient, product) = ParseCompound(productString.Trim());
             products[product] = productCoefficient;
-            _allKnownEntities.Add(product);
         }
 
         // Parse the LHS components (reactants)
         var lhsComponents = new List<(int coefficient, string compound)>();
         foreach (string component in lhs)
         {
-            (int coefficient, string compound) = ParseCompound(component.Trim());
-            lhsComponents.Add((coefficient, compound));
-            _allKnownEntities.Add(compound);
+            lhsComponents.Add(ParseCompound(component.Trim()));
         }
 
         // Add the reaction to the Map for each pair of LHS compounds
@@ -121,6 +110,7 @@ public class ChemicalReactionDatabase : MonoBehaviour
     private string MapToString()
     {
         var result = new System.Text.StringBuilder();
+        result.AppendLine("Map/database:");
         foreach (var reactant1 in Map)
         {
             result.AppendLine($"Reactant1: {reactant1.Key}");
@@ -146,12 +136,38 @@ public class ChemicalReactionDatabase : MonoBehaviour
             return Map[reactant1][reactant2];
         }
 
-        Debug.Log("Reaction not found!");
         return null;
     }
 
-    public static HashSet<string> GetAllKnownEntities()
+    // Retrieve the list of all entities supported by the database (reactants and/or products) for debugging
+    public static List<string> GetAllEntities()
     {
-        return _allKnownEntities;
+        var entities = new List<string>();
+        
+        foreach (var reactant1 in Map.Keys)
+        {
+            if (!entities.Contains(reactant1))
+            {
+                entities.Add(reactant1);
+            }
+
+            foreach (var reactant2 in Map[reactant1].Keys)
+            {
+                if (!entities.Contains(reactant2))
+                {
+                    entities.Add(reactant2);
+                }
+
+                foreach (var product in Map[reactant1][reactant2].First().products.Keys)
+                {
+                    if (!entities.Contains(product))
+                    {
+                        entities.Add(product);
+                    }
+                }
+            }
+        }
+
+        return entities;
     }
 }

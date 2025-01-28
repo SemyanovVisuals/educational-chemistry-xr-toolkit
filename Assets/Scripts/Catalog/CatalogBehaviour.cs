@@ -27,7 +27,7 @@ public class CatalogBehaviour : MonoBehaviour
 
         GameManager gameManager = FindFirstObjectByType<GameManager>();
 
-        _unlockedEntities = new List<string>(gameManager.GetUnlockedEntities());
+        _unlockedEntities = new List<string>(gameManager.GetAllUnlockedEntities());
         // _unlockedEntities = gameManager.GetUnlockedEntities();
 
         LoadPrefabs();

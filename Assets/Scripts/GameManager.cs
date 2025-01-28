@@ -1,35 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private ReactionUIManager reactionUIManager;
     [SerializeField] private ReactionUIManager reactionGameManager;
 
-    // [Header("Collected Data")]
-    // [SerializeField] private List<string> availableElements = new List<string>(); // Names of elements available in the scene
-    // [SerializeField]
-    private List<string> creatableCompounds = new List<string>(); // Names of compounds that can be created
-    // [SerializeField]
-    private List<string> unlockedCompounds = new List<string>(); // Compounds unlocked by the user
-
-    // [Header("Full Item List")]
+    [Header("Entities Lists")]
+    [SerializeField] private List<string> allEntities = new List<string>(); // Names of all entities supported by app 
     [SerializeField] private List<string> unlockedEntities = new List<string>();
 
     private void Start()
     {
-        // Collect the elements available in the scene
-        // CollectAvailableElements();
+        // Load Entities Lists
+        PopulateAllEntities();
+        PopulateUnlockedEntities();
+    }
 
-        // Add unique available elements to unlockedEntities
-        // AddAvailableElementsToUnlockedEntities();
-
-        // Calculate the compounds that can be created
-        CalculatePossibleCompounds();
-
-        // Update the lists in the Inspector
-        RefreshInspectorLists();
+    public List<string> GetAllUnlockedEntities()
+    {
+        return unlockedEntities;
     }
 
     private void OnEnable()
@@ -147,25 +139,22 @@ public class GameManager : MonoBehaviour
 
                     UpdateReactionUI(reactionText);
                     
+                    // Update unlocked entities list
                     foreach (var product in reactions[0].products.Keys.ToList())
                     {
-                        if (creatableCompounds.Contains(product) && !unlockedCompounds.Contains(product))
+                        if (!unlockedEntities.Contains(product))
                         {
-                            // Add the compound to the unlockedCompounds list
-                            unlockedCompounds.Add(product);
-                            unlockedEntities.Add(product); // Add to unlockedEntities as well
+                            unlockedEntities.Add(product);
+                            // TODO: Add Achievement Notification Here: "New Entity Unlocked!" -- listen for this event below
                             EventManager.TriggerEvent(EventType.EntityUnlocked, product);
-                            reactionGameManager.DisplayReactionText($"Unlocked Entities: {product}"); // Show unlocked compound
-    
-                            // If all compounds are unlocked, show "Game Completed" message
-                            if (unlockedCompounds.Count == creatableCompounds.Count)
-                            {
-                                reactionGameManager.DisplayReactionText("Game Completed!");
-                            }
                         }
                     }
-
                     
+                    // Check if the game is completed
+                    if (allEntities.Count == unlockedEntities.Count)
+                    {
+                        // TODO: Add Notification to the Board: "Game Completed!"
+                    }
                     
                     return; // Stop after processing the reaction
                 }
@@ -178,12 +167,10 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // No reaction found
-                Debug.LogError("No valid reactions found for the given reactants.");
+                // No reaction found in the database
+                Debug.Log($"No reaction between {firstEntity.formula} and {secondEntity.formula}.");
             }
         }
-        
-        
     }
     
     private Vector3 CalculateOffsetPosition(Vector3 referencePosition, GameObject entityToAvoid, float offsetDistance = 0.15f)
@@ -207,79 +194,21 @@ public class GameManager : MonoBehaviour
     {
         reactionUIManager.DisplayReactionText(reactionText);
     }
-
-    // private void CollectAvailableElements()
-    // {
-    //     ChemicalEntity[] allEntities = FindObjectsOfType<ChemicalEntity>();
-
-    //     foreach (var entity in allEntities)
-    //     {
-    //         if (entity.entity == ChemicalEntity.ChemEntity.Elements)
-    //         {
-    //             // Add the name of the element from the enum
-    //             string elementName = entity.element.ToString();
-    //             availableElements.Add(elementName);
-    //             Debug.Log($"Collected element: {elementName}");
-    //         }
-    //     }
-
-    //     Debug.Log($"Collected {availableElements.Count} available elements in the scene.");
-    // }
-
-    // private void AddAvailableElementsToUnlockedEntities()
-    // {
-    //     HashSet<string> uniqueElements = new HashSet<string>(ChemicalReactionDatabase.GetAllKnownEntities());
-    //     unlockedEntities.AddRange(uniqueElements);
-    //     Debug.Log($"Added {uniqueElements.Count} unique elements to Unlocked Entities.");
-    // }
-
-    private void CalculatePossibleCompounds()
+    
+    // Load all supported entities from database
+    private void PopulateAllEntities()
     {
-        HashSet<string> checkedPairs = new HashSet<string>();
-
-        foreach (var element1 in ChemicalReactionDatabase.GetAllKnownEntities())
-        {
-            foreach (var element2 in ChemicalReactionDatabase.GetAllKnownEntities())
-            {
-                if (element1 == element2) continue;
-
-                string pairKey = $"{element1}-{element2}";
-                string reversePairKey = $"{element2}-{element1}";
-
-                if (checkedPairs.Contains(pairKey) || checkedPairs.Contains(reversePairKey))
-                    continue;
-
-                Debug.Log($"Checking reaction for: {element1} and {element2}");
-
-                var reactionResult = ChemicalReactionDatabase.GetProducts(element1, element2);
-
-                if (reactionResult != null)
-                {
-                    var products = reactionResult[0].products.Keys.ToList();
-
-                    foreach (var product in products)
-                    {
-                        creatableCompounds.Add(product);
-                        Debug.Log($"Possible compound: {product} (from {element1} and {element2})");
-                    }
-                }
-
-                checkedPairs.Add(pairKey);
-            }
-        }
-
-        Debug.Log($"Calculated {creatableCompounds.Count} possible compounds.");
+        allEntities = ChemicalReactionDatabase.GetAllEntities();
+        Debug.Log("All Entities Supported: " + string.Join(", ", allEntities));
     }
-
-    public List<string> GetUnlockedEntities()
+    
+    // Hard-coded starting entities
+    private void PopulateUnlockedEntities()
     {
-        return unlockedEntities;
-    }
-
-    private void RefreshInspectorLists()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorUtility.SetDirty(this);
-#endif
+        unlockedEntities.Add("H2");
+        unlockedEntities.Add("O2");
+        unlockedEntities.Add("N2");
+        unlockedEntities.Add("C");
+        unlockedEntities.Add("Fe");
     }
 }

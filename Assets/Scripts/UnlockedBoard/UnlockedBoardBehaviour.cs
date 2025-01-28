@@ -21,7 +21,7 @@ public class UnlockedBoardBehaviour : MonoBehaviour
         _gameManager = FindFirstObjectByType<GameManager>();
 
         Vector3 position = Vector3.zero;
-        foreach(string prefabName in ChemicalReactionDatabase.GetAllKnownEntities())
+        foreach(string prefabName in ChemicalReactionDatabase.GetAllEntities())
         {
             Debug.Log($"UnlockedBoardBehaviour:Start:prefabName:{prefabName}");
             GameObject entity = Instantiate<GameObject>(CatalogBehaviour.GetPrefabByName(prefabName), transform);
@@ -76,7 +76,7 @@ public class UnlockedBoardBehaviour : MonoBehaviour
 
     private void StartShowUnlockedState(GameObject entity)
     {
-        List<string> unlockedEntities = _gameManager.GetUnlockedEntities();
+        List<string> unlockedEntities = _gameManager.GetAllUnlockedEntities();
         if(!entity.TryGetComponent<Greyscaleable>(out Greyscaleable greyscaleable))
         {
             greyscaleable = entity.AddComponent<Greyscaleable>();
