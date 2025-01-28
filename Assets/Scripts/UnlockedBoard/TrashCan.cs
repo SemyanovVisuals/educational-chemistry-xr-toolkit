@@ -53,18 +53,6 @@ public class TrashCan : MonoBehaviour
         }
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     Debug.Log("Collided with: " + other.gameObject.name);
-    //     if(_destroying) return;
-    //     if(other.gameObject.name.Contains("Bond"))
-    //     {
-    //         _destroyMe = other.gameObject.transform.parent.parent.gameObject;
-    //         _rotating = true;
-    //         Invoke(nameof(DestroyEntity), 3f);
-    //     }
-    // }
-
     private void OnTriggerStay(Collider other)
     {
         if(_destroying) return;
@@ -93,10 +81,4 @@ public class TrashCan : MonoBehaviour
             _audioSource.Stop();
         }
     }
-    
-    // private void DestroyEntity()
-    // {
-    //     if(_destroyMe == null) return;
-    //     _destroying = true;
-    // }
 }
