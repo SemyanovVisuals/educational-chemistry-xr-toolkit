@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -140,14 +141,14 @@ public class GameManager : MonoBehaviour
                         if (!unlockedEntities.Contains(product))
                         {
                             unlockedEntities.Add(product);
-                            // TODO: Add Achievement Notification Here: "New Entity Unlocked!"
+                            reactionGameManager.DisplayReactionText("New Entity Unlocked!");
                         }
                     }
                     
                     // Check if the game is completed
                     if (allEntities.Count == unlockedEntities.Count)
                     {
-                        // TODO: Add Notification to the Board: "Game Completed!"
+                        StartCoroutine(DisplayGameCompletedWithDelay(2.5f));
                     }
                     
                     return; // Stop after processing the reaction
@@ -166,7 +167,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+    private  IEnumerator DisplayGameCompletedWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        reactionUIManager.DisplayReactionText("Game Completed!");
+    }
+
     private Vector3 CalculateOffsetPosition(Vector3 referencePosition, GameObject entityToAvoid, float offsetDistance = 0.15f)
     {
         Vector3 offsetPosition = referencePosition + new Vector3(offsetDistance, 0, 0);  // Adjust the offset to avoid overlap
