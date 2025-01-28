@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Oculus.Interaction;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CatalogBehaviour : MonoBehaviour
 {
@@ -10,8 +11,25 @@ public class CatalogBehaviour : MonoBehaviour
     [SerializeField] private AudioClip _rightPalmUpSound;
     [SerializeField] private AudioClip _swipeForwardSound;
     [SerializeField] private TextMeshProUGUI _entityNameText;
+    [SerializeField] private TextMeshProUGUI _entityDescriptionText;
     [SerializeField] private Vector3 _summonOffset;
     [SerializeField] private GameObject _swipeForwardTarget;
+
+    private static Dictionary<string, string> _entityNames = new Dictionary<string, string>
+    {
+        { "H2", "hydrogen gas" },
+        { "O2", "oxygen gas" },
+        { "N2", "nitrogen gas" },
+        { "Fe", "iron" },
+        { "C", "carbon" },
+        { "H2O", "water" },
+        { "NH3", "ammonia" },
+        { "CO2", "carbon dioxide" },
+        { "Fe2O3", "iron oxide" },
+        { "NO", "nitric oxide" },
+        { "CH4", "methane" },
+        { "HCN", "cyanide" },
+    };
 
     private AudioSource _audioSource;
 
@@ -56,6 +74,7 @@ public class CatalogBehaviour : MonoBehaviour
         }
         _entities[_currentEntityIndex].SetActive(true);
         _entityNameText.text = _entities[_currentEntityIndex].name;
+        _entityDescriptionText.text = _entityNames[_entities[_currentEntityIndex].name];
         Debug.Log("CatalogBehaviour:LoadedPrefabs");
     }
 
@@ -102,6 +121,7 @@ public class CatalogBehaviour : MonoBehaviour
         _currentEntityIndex = (_currentEntityIndex + 1) % _entities.Count;
         _entities[_currentEntityIndex].SetActive(true);
         _entityNameText.text = _entities[_currentEntityIndex].name;
+        _entityDescriptionText.text = _entityNames[_entities[_currentEntityIndex].name];
     }
 
     private void RightPalmUpActivated(System.Object obj)
