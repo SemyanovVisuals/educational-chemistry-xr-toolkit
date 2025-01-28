@@ -7,7 +7,8 @@ using UnityEngine.UIElements;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private ReactionUIManager reactionUIManager;
-    [SerializeField] private ReactionUIManager reactionGameManager;
+    //[SerializeField] private ReactionUIManager reactionGameManager;
+    [SerializeField] private NotificationBanner banner;
 
     [Header("Entities Lists")]
     [SerializeField] private List<string> allEntities = new List<string>(); // Names of all entities supported by app 
@@ -141,7 +142,9 @@ public class GameManager : MonoBehaviour
                         if (!unlockedEntities.Contains(product))
                         {
                             unlockedEntities.Add(product);
-                            reactionGameManager.DisplayReactionText("New Entity Unlocked!");
+                            //reactionGameManager.DisplayReactionText("New Entity Unlocked!");
+                            banner.SetNotificationText($"New Entity Unlocked:\n{product}");
+                            banner.gameObject.SetActive(true);
                         }
                     }
                     
