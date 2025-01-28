@@ -6,6 +6,7 @@ public class PrefabMunger : MonoBehaviour
 {
     public void MungePhysics()
     {
+        RemoveRotation(gameObject);
         if(gameObject.TryGetComponent<InteractableUnityEventWrapper>(out InteractableUnityEventWrapper interactableUnityEventWrapper))
         {
             interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
@@ -24,12 +25,11 @@ public class PrefabMunger : MonoBehaviour
 
     public void MungeInteraction(bool hideCanvas)
     {
-
         if(hideCanvas) HideCanvases(gameObject);
         RemoveInteractors(gameObject);
         RemoveRotation(gameObject);
         RemoveColliders(gameObject);
-        DisableChemicalEntity(gameObject);
+        if(hideCanvas) DisableChemicalEntity(gameObject);
         DisableTTSInteraction(gameObject);
     }
 

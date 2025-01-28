@@ -39,7 +39,7 @@ public class UnlockedBoardBehaviour : MonoBehaviour
             }
             else
             {
-                position.x += bounds.size.x + 0.1f;
+                position.x += bounds.size.x + 0.15f;
                 _currentColumn++;
             }
 

@@ -1,17 +1,24 @@
 using System.Runtime.CompilerServices;
 using Oculus.Interaction.Editor.Generated;
 using Oculus.Interaction.HandGrab;
+using Oculus.Interaction.Input;
 using UnityEngine;
 
 public class TrashCan : MonoBehaviour
 {
+    [SerializeField] private AudioClip _destroySound;
     [SerializeField] private GameObject _bottom;
 
-    private HandGrabInteractable _handGrabInteractable;
+    private AudioSource _audioSource;
     private GameObject _destroyMe;
-
     private bool _destroying = false;
     private bool _rotating = false;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         UpdateRotation();
@@ -28,7 +35,6 @@ public class TrashCan : MonoBehaviour
     private void UpdateDestroy()
     {
         if(!_destroying) return;
-        // if(_handGrabInteractable && _handGrabInteractable.SelectingInteractors.Count > 0) return;
 
         float distance = Vector3.Distance(_destroyMe.transform.position, _bottom.transform.position);
         if(distance < 0.01f)
@@ -36,9 +42,9 @@ public class TrashCan : MonoBehaviour
             Destroy(_destroyMe);
 
             _destroyMe = null;
-            _handGrabInteractable = null;
             _destroying = false;
             _rotating = false;
+            _audioSource.Stop();
         }
         else
         {
@@ -47,36 +53,50 @@ public class TrashCan : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     Debug.Log("Collided with: " + other.gameObject.name);
+    //     if(_destroying) return;
+    //     if(other.gameObject.name.Contains("Bond"))
+    //     {
+    //         _destroyMe = other.gameObject.transform.parent.parent.gameObject;
+    //         _rotating = true;
+    //         Invoke(nameof(DestroyEntity), 3f);
+    //     }
+    // }
+
+    private void OnTriggerStay(Collider other)
     {
-        Debug.Log("Collided with: " + other.gameObject.name);
         if(_destroying) return;
-        if(other.gameObject.name.Contains("Bond"))
-        {
-            _destroyMe = other.gameObject.transform.parent.parent.gameObject;
-            _rotating = true;
-            Invoke(nameof(DestroyEntity), 3f);
-        }
+
+        ChemicalEntity chemicalEntity = other.gameObject.GetComponentInParent<ChemicalEntity>();
+        if(chemicalEntity == null) return;
+        _rotating = true;
+
+        if(!_audioSource.isPlaying) _audioSource.Play();
+        HandGrabInteractable handGrabInteractable = chemicalEntity.GetComponent<HandGrabInteractable>();
+        if(handGrabInteractable == null || handGrabInteractable.SelectingInteractors.Count > 0) return;
+
+        _destroyMe = chemicalEntity.gameObject;
+        _destroying = true;
+        _audioSource.PlayOneShot(_destroySound);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exited collision with: " + other.gameObject.name);
         if(_destroying) return;
-        if(other.gameObject.name.Contains("Bond"))
+
+        ChemicalEntity chemicalEntity = other.gameObject.GetComponentInParent<ChemicalEntity>();
+        if(chemicalEntity != null && !_destroying)
         {
-            _destroyMe = null;
-            _destroying = false;
             _rotating = false;
-            CancelInvoke(nameof(DestroyEntity));
+            _audioSource.Stop();
         }
     }
     
-    private void DestroyEntity()
-    {
-        if(_destroyMe == null) return;
-
-        _handGrabInteractable = _destroyMe.GetComponent<HandGrabInteractable>();
-        _destroying = true;
-    }
+    // private void DestroyEntity()
+    // {
+    //     if(_destroyMe == null) return;
+    //     _destroying = true;
+    // }
 }
