@@ -15,10 +15,7 @@ public class Greyscaleable : MonoBehaviour
     {
         StartGetColorsForCanvasText();
         StartGetMaterialColorsForMeshRenderers();
-        if(_isGreyscale)
-        {
-            StartGrayscale();
-        }
+        StartGrayscaleOrColor();
     }
 
     private void StartGetColorsForCanvasText()
@@ -50,8 +47,22 @@ public class Greyscaleable : MonoBehaviour
         return colors;
     }
 
-    private void StartGrayscale()
+    private void StartGrayscaleOrColor()
     {
+        if (_isGreyscale)
+        {
+            MakeGrayscale();
+        }
+        else
+        {
+            MakeColorful();
+        }
+    }
+
+    public void MakeGrayscale()
+    {
+        _isGreyscale = true;
+        if(_meshRenderers == null) return;
         foreach (MeshRenderer meshRenderer in _meshRenderers)
         {
             Material[] materials = meshRenderer.materials;
@@ -68,14 +79,11 @@ public class Greyscaleable : MonoBehaviour
         }
     }
 
-    public void MakeGrayscale()
-    {
-        _isGreyscale = true;
-    }
-
     public void MakeColorful()
     {
         _isGreyscale = false;
+        if(_meshRenderers == null) return;
+
         for (int i = 0; i < _meshRenderers.Length; i++)
         {
             Material[] materials = _meshRenderers[i].materials;

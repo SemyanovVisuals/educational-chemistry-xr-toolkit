@@ -7,32 +7,43 @@ public class CatalogBehaviour : MonoBehaviour
 {
     private static Dictionary<string,GameObject> _cachedPrefabs = new Dictionary<string, GameObject>();
 
+    [SerializeField] private AudioClip _rightPalmUpSound;
+    [SerializeField] private AudioClip _swipeForwardSound;
     [SerializeField] private TextMeshProUGUI _entityNameText;
     [SerializeField] private Vector3 _summonOffset;
     [SerializeField] private GameObject _swipeForwardTarget;
-    [SerializeField] private List<string> _unlockedEntities;
+
+    private AudioSource _audioSource;
 
     private List<GameObject> _entities;
+    private List<string> _unlockedEntities;
     private int _currentEntityIndex = 0;
     private float _timeLastPalmUpActivation = 0f;
     private float _timeBeforePalmUpReactivation = 2f;
 
-
     private void Start()
     {
-        LoadPrefabs();
-        _entities[_currentEntityIndex].SetActive(true);
-        _entityNameText.text = _entities[_currentEntityIndex].name;
+        _audioSource = GetComponent<AudioSource>();
 
+        GameManager gameManager = FindFirstObjectByType<GameManager>();
+
+        _unlockedEntities = new List<string>(gameManager.GetAllUnlockedEntities());
+        // _unlockedEntities = gameManager.GetUnlockedEntities();
+
+        LoadPrefabs();
+
+        EventManager.StartListening(EventType.EntityUnlocked, EntityUnlocked);
         EventManager.StartListening(EventType.SwipeForwardActivated, SwipeForwardActivated);
         EventManager.StartListening(EventType.RightPalmUpActivated, RightPalmUpActivated);
     }
 
     private void LoadPrefabs()
     {
+        Debug.Log("CatalogBehaviour:LoadingPrefabs");
         _entities = new List<GameObject>();
         foreach (string entityName in _unlockedEntities)
         {
+            Debug.Log($"CatalogBehaviour:LoadingPrefab:{entityName}");
             GameObject entity = Instantiate(GetPrefabByName(entityName), transform);
             entity.name = entityName;
             entity.transform.localPosition = Vector3.zero;
@@ -42,6 +53,9 @@ public class CatalogBehaviour : MonoBehaviour
             entity.SetActive(false);
             _entities.Add(entity);
         }
+        _entities[_currentEntityIndex].SetActive(true);
+        _entityNameText.text = _entities[_currentEntityIndex].name;
+        Debug.Log("CatalogBehaviour:LoadedPrefabs");
     }
 
     public static GameObject GetPrefabByName(string prefabName)
@@ -58,11 +72,30 @@ public class CatalogBehaviour : MonoBehaviour
         }
     }
 
+    private void EntityUnlocked(System.Object obj)
+    {
+        string entityName = (string) obj;
+        Debug.Log($"CatalogBehaviour:EntityUnlocked:{entityName}");
+        if(_unlockedEntities.Contains(entityName)) return;
+
+        Debug.Log($"CatalogBehaviour:EntityUnlocked:{entityName}");
+        _unlockedEntities.Add(entityName);
+        GameObject entity = Instantiate(GetPrefabByName(entityName), transform);
+        entity.name = entityName;
+        entity.transform.localPosition = Vector3.zero;
+        entity.transform.localScale = entity.transform.localScale * 0.5f;
+        entity.AddComponent<Hologram>();
+        entity.AddComponent<Swipeable>();
+        entity.SetActive(false);
+        _entities.Add(entity);
+    }
+
     private void SwipeForwardActivated(System.Object obj)
     {
         if(!gameObject.activeSelf) return;
 
         Debug.Log("SwipeForwardActivated");
+        _audioSource.PlayOneShot(_swipeForwardSound);
         _entities[_currentEntityIndex].GetComponent<Swipeable>().SwipeOut(_swipeForwardTarget);
         _currentEntityIndex = (_currentEntityIndex + 1) % _entities.Count;
         _entities[_currentEntityIndex].SetActive(true);
@@ -77,6 +110,7 @@ public class CatalogBehaviour : MonoBehaviour
         _timeLastPalmUpActivation = Time.time;
 
         Debug.Log("RightPalmUpActivated");
+        _audioSource.PlayOneShot(_rightPalmUpSound);
         string currentlySelectedEntity = _entities[_currentEntityIndex].name;
         GameObject entity = Instantiate(GetPrefabByName(currentlySelectedEntity));
         entity.name = currentlySelectedEntity;
