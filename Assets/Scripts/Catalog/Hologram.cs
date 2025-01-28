@@ -5,18 +5,8 @@ using Random = UnityEngine.Random;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
 
-public class Hologram : PrefabMunger
-{
-    private void Start()
-    {
-        HideCanvases(gameObject);
-        RemoveInteractors(gameObject);
-        RemoveRotation(gameObject);
-        RemoveColliders(gameObject);
-        DisableChemicalEntity(gameObject);
-        DisableTTSInteraction(gameObject);
-    }
-    
+public class Hologram : MonoBehaviour
+{    
     private void Update()
     {
         UpdateRotate();

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnlockedBoardBehaviour : PrefabMunger
+public class UnlockedBoardBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform _entitiesHandle;
 
@@ -22,7 +22,7 @@ public class UnlockedBoardBehaviour : PrefabMunger
             Debug.Log($"UnlockedBoardBehaviour:Start:prefabName:{prefabName}");
             GameObject entity = Instantiate<GameObject>(CatalogBehaviour.GetPrefabByName(prefabName), transform);
             entity.name = prefabName;
-
+            entity.AddComponent<PrefabMunger>().MungeInteraction(false);
             Vector3 scale = entity.transform.localScale * 0.3f;
             scale.z = 0.01f;
             entity.transform.localScale = scale;
@@ -42,12 +42,6 @@ public class UnlockedBoardBehaviour : PrefabMunger
                 position.x += bounds.size.x + 0.1f;
                 _currentColumn++;
             }
-
-            RemoveInteractors(entity);
-            RemoveRotation(entity);
-            RemoveColliders(entity);
-            DisableChemicalEntity(entity);
-            DisableTTSInteraction(entity);
 
             StartShowUnlockedState(entity);
 

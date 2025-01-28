@@ -50,6 +50,7 @@ public class CatalogBehaviour : MonoBehaviour
             entity.transform.localScale = entity.transform.localScale * 0.5f;
             entity.AddComponent<Hologram>();
             entity.AddComponent<Swipeable>();
+            entity.AddComponent<PrefabMunger>().MungeInteraction(true);
             entity.SetActive(false);
             _entities.Add(entity);
         }
@@ -86,6 +87,7 @@ public class CatalogBehaviour : MonoBehaviour
         entity.transform.localScale = entity.transform.localScale * 0.5f;
         entity.AddComponent<Hologram>();
         entity.AddComponent<Swipeable>();
+        entity.AddComponent<PrefabMunger>().MungeInteraction(true);
         entity.SetActive(false);
         _entities.Add(entity);
     }
@@ -124,12 +126,6 @@ public class CatalogBehaviour : MonoBehaviour
 
         GameObject target = (GameObject) obj;
         entity.AddComponent<Summonable>().ToTarget(target.transform.position+_summonOffset);
-
-        if(!entity.TryGetComponent<Rigidbody>(out Rigidbody rb))
-        {
-            rb = entity.AddComponent<Rigidbody>();
-        }
-        entity.AddComponent<VelocityBrake>();
-        rb.isKinematic = false;
+        entity.AddComponent<PrefabMunger>().MungePhysics();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
                             GameObject productInstance = Instantiate(prefab, newPosition, Quaternion.identity);
                             productInstance.GetComponent<ChemicalEntity>().coefficient = product.Value;
                             productInstance.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
+                            productInstance.AddComponent<PrefabMunger>().MungePhysics();
                         }
                     }
                     else if (numProducts == 2)   // Replacement
@@ -127,7 +129,8 @@ public class GameManager : MonoBehaviour
                         GameObject productInstance1 = Instantiate(prefab1, newPosition, Quaternion.identity);
                         productInstance1.GetComponent<ChemicalEntity>().coefficient = product1.Value;
                         productInstance1.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
-                        
+                        productInstance1.AddComponent<PrefabMunger>().MungePhysics();
+
                         // Ensure productInstance2 does not overlap with productInstance1 or the firstEntity/secondEntity (if still exist)
                         Vector3 newProductPosition = CalculateOffsetPosition(productInstance1.transform.position, firstEntity?.gameObject);
                         newProductPosition = CalculateOffsetPosition(newProductPosition, secondEntity?.gameObject);
@@ -135,6 +138,8 @@ public class GameManager : MonoBehaviour
                         GameObject productInstance2 = Instantiate(prefab2, newProductPosition, Quaternion.identity);
                         productInstance2.GetComponent<ChemicalEntity>().coefficient = product2.Value;
                         productInstance2.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
+                        productInstance2.AddComponent<PrefabMunger>().MungePhysics();
+
                     }
 
                     UpdateReactionUI(reactionText);

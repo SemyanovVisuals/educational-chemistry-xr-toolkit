@@ -123,6 +123,25 @@ public class ChemicalEntity : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.GetComponentInParent<ChemicalEntity>() != null)
+        {
+            isColliding = true;
+            collidingChemEntity = other.gameObject.GetComponentInParent<ChemicalEntity>().gameObject;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.GetComponentInParent<ChemicalEntity>() != null && 
+            collidingChemEntity == other.gameObject.GetComponentInParent<ChemicalEntity>().gameObject)
+        {
+            isColliding = false;
+            collidingChemEntity = null;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponentInParent<ChemicalEntity>() != null)

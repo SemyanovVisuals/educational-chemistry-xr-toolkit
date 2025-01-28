@@ -4,6 +4,35 @@ using Oculus.Interaction.HandGrab;
 
 public class PrefabMunger : MonoBehaviour
 {
+    public void MungePhysics()
+    {
+        if(gameObject.TryGetComponent<InteractableUnityEventWrapper>(out InteractableUnityEventWrapper interactableUnityEventWrapper))
+        {
+            interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
+            interactableUnityEventWrapper.WhenUnhover.RemoveAllListeners();
+        }
+
+        DisableColliderTriggers(gameObject);
+
+        if(!TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            gameObject.AddComponent<Rigidbody>();
+        }
+        gameObject.AddComponent<VelocityBrake>();
+        rb.isKinematic = false;
+    }
+
+    public void MungeInteraction(bool hideCanvas)
+    {
+
+        if(hideCanvas) HideCanvases(gameObject);
+        RemoveInteractors(gameObject);
+        RemoveRotation(gameObject);
+        RemoveColliders(gameObject);
+        DisableChemicalEntity(gameObject);
+        DisableTTSInteraction(gameObject);
+    }
+
     protected void HideCanvases(GameObject entity)
     {
         Canvas[] canvases = entity.GetComponentsInChildren<Canvas>();
@@ -65,6 +94,23 @@ public class PrefabMunger : MonoBehaviour
         {
             interactableUnityEventWrapper.WhenHover.RemoveAllListeners();
             interactableUnityEventWrapper.WhenUnhover.RemoveAllListeners();
+        }
+    }
+
+    private void DisableColliderTriggers(GameObject entity)
+    {
+        for(int i = 0; i < entity.transform.childCount; i++)
+        {
+            SphereCollider[] sphereColliders = entity.transform.GetChild(i).GetComponentsInChildren<SphereCollider>();
+            foreach (Collider collider in sphereColliders)
+            {
+                collider.isTrigger = false;
+            }
+            CapsuleCollider[] capsuleColliders = entity.transform.GetChild(i).GetComponentsInChildren<CapsuleCollider>();
+            foreach (Collider collider in capsuleColliders)
+            {
+                collider.isTrigger = false;
+            }
         }
     }
 }
