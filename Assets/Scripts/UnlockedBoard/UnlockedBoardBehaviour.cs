@@ -3,20 +3,27 @@ using UnityEngine;
 
 public class UnlockedBoardBehaviour : MonoBehaviour
 {
-    [SerializeField] private List<string> _allEntities;
-    [SerializeField] private List<string> _unlockedEntities;
+    // [SerializeField]
+    // private List<string> _allEntities;
+    // [SerializeField]
+    // private List<string> _unlockedEntities;
     [SerializeField] private Transform _entitiesHandle;
 
     [SerializeField] private int _entitiesPerRow = 3;
 
     private int _currentColumn;
 
+    private Dictionary<string,GameObject> _entities = new Dictionary<string,GameObject>();
+    private GameManager _gameManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _gameManager = FindFirstObjectByType<GameManager>();
+
         Vector3 position = Vector3.zero;
-        foreach(string prefabName in _allEntities)
+        foreach(string prefabName in ChemicalReactionDatabase.GetAllEntities())
         {
+            Debug.Log($"UnlockedBoardBehaviour:Start:prefabName:{prefabName}");
             GameObject entity = Instantiate<GameObject>(CatalogBehaviour.GetPrefabByName(prefabName), transform);
             entity.name = prefabName;
 
@@ -42,6 +49,19 @@ public class UnlockedBoardBehaviour : MonoBehaviour
 
             StartRemoveRotation(entity);
             StartShowUnlockedState(entity);
+
+            _entities.Add(entity.name, entity);
+        }
+
+        EventManager.StartListening(EventType.EntityUnlocked, OnEntityUnlocked);
+    }
+
+    private void OnEntityUnlocked(System.Object obj)
+    {
+        string entityName = (string)obj;
+        if(_entities.ContainsKey(entityName))
+        {
+            StartShowUnlockedState(_entities[entityName]);
         }
     }
 
@@ -56,10 +76,19 @@ public class UnlockedBoardBehaviour : MonoBehaviour
 
     private void StartShowUnlockedState(GameObject entity)
     {
-        Greyscaleable greyscaleable = entity.AddComponent<Greyscaleable>();
-        if (!_unlockedEntities.Contains(entity.name))
+        List<string> unlockedEntities = _gameManager.GetAllUnlockedEntities();
+        if(!entity.TryGetComponent<Greyscaleable>(out Greyscaleable greyscaleable))
+        {
+            greyscaleable = entity.AddComponent<Greyscaleable>();
+        }
+
+        if (!unlockedEntities.Contains(entity.name))
         {
             greyscaleable.MakeGrayscale();
+        }
+        else
+        {
+            greyscaleable.MakeColorful();
         }
     }
 

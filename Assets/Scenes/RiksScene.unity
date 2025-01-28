@@ -8012,8 +8012,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629170529}
-  - component: {fileID: 629170530}
   - component: {fileID: 629170531}
+  - component: {fileID: 629170530}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8049,11 +8049,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reactionUIManager: {fileID: 676717243}
-  reactionGameManager: {fileID: 0}
-  availableElements: []
-  creatableCompounds: []
-  unlockedCompounds: []
-  unlockedEntities: []
+  reactionGameManager: {fileID: 676717243}
+  unlockedEntities:
+  - O2
+  - C
+  - N2
 --- !u!114 &629170531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13538,19 +13538,7 @@ MonoBehaviour:
         m_CallState: 2
   _whenDeactivated:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1067635813}
-        m_TargetAssemblyTypeName: GestureEventsNotifier, Assembly-CSharp
-        m_MethodName: OnDeactivated
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _emitOnFirstUpdate: 0
 --- !u!114 &1067635813
 MonoBehaviour:
@@ -13564,8 +13552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95bf2d1a131fdf498ec925ab403acc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activatedEvent: 4
-  _deactivatedEvent: 5
+  _activatedEvent: 5
+  _deactivatedEvent: 6
 --- !u!114 &1067635814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26065,8 +26053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95bf2d1a131fdf498ec925ab403acc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activatedEvent: 0
-  _deactivatedEvent: 1
+  _activatedEvent: 1
+  _deactivatedEvent: 2
 --- !u!1 &2128374913
 GameObject:
   m_ObjectHideFlags: 0
@@ -26349,10 +26337,6 @@ MonoBehaviour:
   _entityNameText: {fileID: 3599173664258517426}
   _summonOffset: {x: 0, y: 0.1, z: 0.15}
   _swipeForwardTarget: {fileID: 6363491852430625505}
-  _unlockedEntities:
-  - H2
-  - C
-  - N2
 --- !u!1 &919132148749132093
 GameObject:
   m_ObjectHideFlags: 0
@@ -26639,8 +26623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95bf2d1a131fdf498ec925ab403acc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activatedEvent: 6
-  _deactivatedEvent: 7
+  _activatedEvent: 7
+  _deactivatedEvent: 8
 --- !u!114 &1125734648780646545
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
         PopulateUnlockedEntities();
     }
 
+    public List<string> GetAllUnlockedEntities()
+    {
+        return unlockedEntities;
+    }
+
     private void OnEnable()
     {
         ChemicalEntity.OnReactionTriggered += HandleReaction;   // Subscribe to the reaction event
@@ -140,7 +145,8 @@ public class GameManager : MonoBehaviour
                         if (!unlockedEntities.Contains(product))
                         {
                             unlockedEntities.Add(product);
-                            // TODO: Add Achievement Notification Here: "New Entity Unlocked!"
+                            // TODO: Add Achievement Notification Here: "New Entity Unlocked!" -- listen for this event below
+                            EventManager.TriggerEvent(EventType.EntityUnlocked, product);
                         }
                     }
                     
