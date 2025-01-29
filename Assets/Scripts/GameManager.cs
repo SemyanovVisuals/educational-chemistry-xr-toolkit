@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ParticleSystem _positiveFeedbackParticles;
     [SerializeField] private ParticleSystem _negativeFeedbackParticles;
     [SerializeField] private ReactionUIManager reactionUIManager;
-    //[SerializeField] private ReactionUIManager reactionGameManager;
     [SerializeField] private NotificationBanner banner;
 
     [Header("Entities Lists")]
@@ -156,7 +155,7 @@ public class GameManager : MonoBehaviour
                         "Reaction"
                     };
 
-                    // UpdateReactionUI(reactionText, reactionQuery);
+                    UpdateReactionUI(reactionText, reactionQuery);
                     
                     // Update unlocked entities list
                     foreach (var product in reactions[0].products.Keys.ToList())
@@ -177,7 +176,7 @@ public class GameManager : MonoBehaviour
                         StartCoroutine(DisplayGameCompletedWithDelay(2.5f));
                     }
                     
-                    ShowPositiveFeedback(firstEntity.transform.position);
+                    // ShowPositiveFeedback(firstEntity.transform.position);
                     return; // Stop after processing the reaction
                 }
                 
@@ -194,7 +193,7 @@ public class GameManager : MonoBehaviour
                 };
 
                 UpdateReactionUI(hintText, hintQuery);
-                ShowNegativeFeedback(firstEntity.transform.position);
+                // ShowNegativeFeedback(firstEntity.transform.position);
             }
             else
             {
