@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
                         "Reaction"
                     };
 
-                    UpdateReactionUI(reactionText, reactionQuery);
+                    // UpdateReactionUI(reactionText, reactionQuery);
                     
                     // Update unlocked entities list
                     foreach (var product in reactions[0].products.Keys.ToList())
@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
                         if (!unlockedEntities.Contains(product))
                         {
                             unlockedEntities.Add(product);
+                            EventManager.TriggerEvent(EventType.EntityUnlocked, product);
                             banner.SetNotificationText($"New Entity Unlocked:\n{product}");
                             banner.gameObject.SetActive(true);
 
