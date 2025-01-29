@@ -5,7 +5,7 @@ public class TTSHandler : MonoBehaviour
 {
     public TTSSpeaker ttsSpeaker; 
     public NarrationManager narrationManager;
-    public float cooldownTime = 2f; // Cooldown time in seconds to prevent repeating
+    public float cooldownTime = 60f; // Cooldown time in seconds to prevent repeating
 
     private string lastEntitySpoken; 
     private float lastSpeakTime; 
