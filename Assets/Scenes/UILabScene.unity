@@ -8117,8 +8117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca16f702d3cf9345b30f4e3acb3a4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _positiveFeedbackParticles: {fileID: 0}
+  _negativeFeedbackParticles: {fileID: 0}
   reactionUIManager: {fileID: 2087700159}
-  banner: {fileID: 0}
+  banner: {fileID: 1040611099792542269}
   allEntities: []
   unlockedEntities: []
 --- !u!114 &629170531
@@ -25324,6 +25326,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8edaf882e5626264c906367a32495704, type: 3}
+--- !u!114 &1040611099792542269 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5246231970389942896, guid: 8edaf882e5626264c906367a32495704, type: 3}
+  m_PrefabInstance: {fileID: 1040611099792542268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a68fcb058807d4babcc4613e6e8b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1959572990374605369
 PrefabInstance:
   m_ObjectHideFlags: 0
