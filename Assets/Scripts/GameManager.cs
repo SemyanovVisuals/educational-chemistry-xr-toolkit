@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using Oculus.Interaction;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _positiveFeedbackParticles;
+    [SerializeField] private ParticleSystem _negativeFeedbackParticles;
     [SerializeField] private ReactionUIManager reactionUIManager;
     //[SerializeField] private ReactionUIManager reactionGameManager;
     [SerializeField] private NotificationBanner banner;
@@ -21,6 +24,11 @@ public class GameManager : MonoBehaviour
         // Load Entities Lists
         PopulateAllEntities();
         PopulateUnlockedEntities();
+    }
+
+    public List<string> GetAllUnlockedEntities()
+    {
+        return unlockedEntities;
     }
 
     private void OnEnable()
@@ -107,6 +115,7 @@ public class GameManager : MonoBehaviour
                             GameObject productInstance = Instantiate(prefab, newPosition, Quaternion.identity);
                             productInstance.GetComponent<ChemicalEntity>().coefficient = product.Value;
                             productInstance.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
+                            productInstance.AddComponent<PrefabMunger>().MungePhysics();
                         }
                     }
                     else if (numProducts == 2)   // Replacement
@@ -127,7 +136,8 @@ public class GameManager : MonoBehaviour
                         GameObject productInstance1 = Instantiate(prefab1, newPosition, Quaternion.identity);
                         productInstance1.GetComponent<ChemicalEntity>().coefficient = product1.Value;
                         productInstance1.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
-                        
+                        productInstance1.AddComponent<PrefabMunger>().MungePhysics();
+
                         // Ensure productInstance2 does not overlap with productInstance1 or the firstEntity/secondEntity (if still exist)
                         Vector3 newProductPosition = CalculateOffsetPosition(productInstance1.transform.position, firstEntity?.gameObject);
                         newProductPosition = CalculateOffsetPosition(newProductPosition, secondEntity?.gameObject);
@@ -135,6 +145,8 @@ public class GameManager : MonoBehaviour
                         GameObject productInstance2 = Instantiate(prefab2, newProductPosition, Quaternion.identity);
                         productInstance2.GetComponent<ChemicalEntity>().coefficient = product2.Value;
                         productInstance2.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
+                        productInstance2.AddComponent<PrefabMunger>().MungePhysics();
+
                     }
                     
                     var reactionQuery = new HashSet<string>
@@ -154,6 +166,7 @@ public class GameManager : MonoBehaviour
                             unlockedEntities.Add(product);
                             banner.SetNotificationText($"New Entity Unlocked:\n{product}");
                             banner.gameObject.SetActive(true);
+
                         }
                     }
                     
@@ -163,6 +176,7 @@ public class GameManager : MonoBehaviour
                         StartCoroutine(DisplayGameCompletedWithDelay(2.5f));
                     }
                     
+                    ShowPositiveFeedback(firstEntity.transform.position);
                     return; // Stop after processing the reaction
                 }
                 
@@ -179,6 +193,7 @@ public class GameManager : MonoBehaviour
                 };
 
                 UpdateReactionUI(hintText, hintQuery);
+                ShowNegativeFeedback(firstEntity.transform.position);
             }
             else
             {
@@ -187,11 +202,25 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     private  IEnumerator DisplayGameCompletedWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         reactionUIManager.DisplayReactionText("Game completed!\n\n" +
                                               "All chemical entities unlocked.");
+    
+    }
+    
+    private void ShowPositiveFeedback(Vector3 position)
+    {
+        _positiveFeedbackParticles.transform.position = position;
+        _positiveFeedbackParticles.Play();
+    }
+
+    private void ShowNegativeFeedback(Vector3 position)
+    {
+        _negativeFeedbackParticles.transform.position = position;
+        _negativeFeedbackParticles.Play();
     }
 
     private Vector3 CalculateOffsetPosition(Vector3 referencePosition, GameObject entityToAvoid, float offsetDistance = 0.15f)

@@ -3,23 +3,26 @@ using UnityEngine;
 
 public class UnlockedBoardBehaviour : MonoBehaviour
 {
-    [SerializeField] private List<string> _allEntities;
-    [SerializeField] private List<string> _unlockedEntities;
     [SerializeField] private Transform _entitiesHandle;
 
     [SerializeField] private int _entitiesPerRow = 3;
 
     private int _currentColumn;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Dictionary<string,GameObject> _entities = new Dictionary<string,GameObject>();
+    private GameManager _gameManager;
+
     void Start()
     {
+        _gameManager = FindFirstObjectByType<GameManager>();
+
         Vector3 position = Vector3.zero;
-        foreach(string prefabName in _allEntities)
+        foreach(string prefabName in ChemicalReactionDatabase.GetAllEntities())
         {
+            Debug.Log($"UnlockedBoardBehaviour:Start:prefabName:{prefabName}");
             GameObject entity = Instantiate<GameObject>(CatalogBehaviour.GetPrefabByName(prefabName), transform);
             entity.name = prefabName;
-
+            entity.AddComponent<PrefabMunger>().MungeInteraction(false);
             Vector3 scale = entity.transform.localScale * 0.3f;
             scale.z = 0.01f;
             entity.transform.localScale = scale;
@@ -36,30 +39,42 @@ public class UnlockedBoardBehaviour : MonoBehaviour
             }
             else
             {
-                position.x += bounds.size.x + 0.1f;
+                position.x += bounds.size.x + 0.15f;
                 _currentColumn++;
             }
 
-            StartRemoveRotation(entity);
             StartShowUnlockedState(entity);
+
+            _entities.Add(entity.name, entity);
         }
+
+        EventManager.StartListening(EventType.EntityUnlocked, OnEntityUnlocked);
     }
 
-    private void StartRemoveRotation(GameObject entity)
+    private void OnEntityUnlocked(System.Object obj)
     {
-        RotationObjects[] rotationObjects = entity.GetComponentsInChildren<RotationObjects>();
-        foreach (RotationObjects rotationObject in rotationObjects)
+        string entityName = (string)obj;
+        if(_entities.ContainsKey(entityName))
         {
-            rotationObject.enabled = false;
+            StartShowUnlockedState(_entities[entityName]);
         }
     }
 
     private void StartShowUnlockedState(GameObject entity)
     {
-        Greyscaleable greyscaleable = entity.AddComponent<Greyscaleable>();
-        if (!_unlockedEntities.Contains(entity.name))
+        List<string> unlockedEntities = _gameManager.GetAllUnlockedEntities();
+        if(!entity.TryGetComponent<Greyscaleable>(out Greyscaleable greyscaleable))
+        {
+            greyscaleable = entity.AddComponent<Greyscaleable>();
+        }
+
+        if (!unlockedEntities.Contains(entity.name))
         {
             greyscaleable.MakeGrayscale();
+        }
+        else
+        {
+            greyscaleable.MakeColorful();
         }
     }
 
@@ -81,35 +96,6 @@ public class UnlockedBoardBehaviour : MonoBehaviour
             }
         }
 
-        // RectTransform[] rectTransforms = gameObject.GetComponentsInChildren<RectTransform>();
-        // foreach (RectTransform rectTransform in rectTransforms)
-        // {
-        //     Vector3[] corners = new Vector3[4];
-        //     rectTransform.GetWorldCorners(corners);
-
-        //     Bounds bounds = new(corners[0], Vector3.zero);
-        //     for (int i = 1; i < corners.Length; i++)
-        //     {
-        //         bounds.Encapsulate(corners[i]);
-        //     }
-
-        //     totalBounds.Encapsulate(bounds);
-        // }
-        // Vector3[] corners = new Vector3[4];
-        // rectTransform.GetWorldCorners(corners);
-
-        // Bounds bounds = new Bounds(corners[0], Vector3.zero);
-        // for (int i = 1; i < corners.Length; i++)
-        // {
-        //     bounds.Encapsulate(corners[i]);
-        // }
-
         return totalBounds;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
