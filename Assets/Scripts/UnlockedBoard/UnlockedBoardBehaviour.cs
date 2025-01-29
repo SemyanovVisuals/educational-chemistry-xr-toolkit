@@ -14,8 +14,12 @@ public class UnlockedBoardBehaviour : MonoBehaviour
 
     void Start()
     {
-        _gameManager = FindFirstObjectByType<GameManager>();
+        Invoke(nameof(StartAfterWait), 0.25f);
+    }
 
+    private void StartAfterWait()
+    {
+        _gameManager = FindFirstObjectByType<GameManager>();
         Vector3 position = Vector3.zero;
         foreach(string prefabName in ChemicalReactionDatabase.GetAllEntities())
         {
