@@ -8167,10 +8167,7 @@ MonoBehaviour:
   reactionUIManager: {fileID: 1665817797}
   banner: {fileID: 774670331}
   allEntities: []
-  unlockedEntities:
-  - O2
-  - C
-  - N2
+  unlockedEntities: []
 --- !u!114 &629170531
 MonoBehaviour:
   m_ObjectHideFlags: 0
