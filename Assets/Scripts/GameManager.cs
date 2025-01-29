@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Oculus.Interaction;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -9,11 +10,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ParticleSystem _positiveFeedbackParticles;
     [SerializeField] private ParticleSystem _negativeFeedbackParticles;
     [SerializeField] private ReactionUIManager reactionUIManager;
-    [SerializeField] private ReactionUIManager reactionGameManager;
+    //[SerializeField] private ReactionUIManager reactionGameManager;
+    [SerializeField] private NotificationBanner banner;
 
     [Header("Entities Lists")]
     [SerializeField] private List<string> allEntities = new List<string>(); // Names of all entities supported by app 
     [SerializeField] private List<string> unlockedEntities = new List<string>();
+
+    private HashSet<string> lastQuery;
 
     private void Start()
     {
@@ -60,6 +64,7 @@ public class GameManager : MonoBehaviour
                 var reaction = reactions[0];
                 int numProducts = reaction.products.Count;
                 string reactionText;
+                string hintText;
                 
                 // Check if coefficients are sufficient
                 if (firstEntity.coefficient >= reaction.coefficients.Item1 &&
@@ -143,8 +148,15 @@ public class GameManager : MonoBehaviour
                         productInstance2.AddComponent<PrefabMunger>().MungePhysics();
 
                     }
+                    
+                    var reactionQuery = new HashSet<string>
+                    {
+                        firstEntity.formula,
+                        secondEntity.formula,
+                        "Reaction"
+                    };
 
-                    UpdateReactionUI(reactionText);
+                    UpdateReactionUI(reactionText, reactionQuery);
                     
                     // Update unlocked entities list
                     foreach (var product in reactions[0].products.Keys.ToList())
@@ -152,15 +164,16 @@ public class GameManager : MonoBehaviour
                         if (!unlockedEntities.Contains(product))
                         {
                             unlockedEntities.Add(product);
-                            // TODO: Add Achievement Notification Here: "New Entity Unlocked!" -- listen for this event below
-                            EventManager.TriggerEvent(EventType.EntityUnlocked, product);
+                            banner.SetNotificationText($"New Entity Unlocked:\n{product}");
+                            banner.gameObject.SetActive(true);
+
                         }
                     }
                     
                     // Check if the game is completed
                     if (allEntities.Count == unlockedEntities.Count)
                     {
-                        // TODO: Add Notification to the Board: "Game Completed!"
+                        StartCoroutine(DisplayGameCompletedWithDelay(2.5f));
                     }
                     
                     ShowPositiveFeedback(firstEntity.transform.position);
@@ -168,11 +181,19 @@ public class GameManager : MonoBehaviour
                 }
                 
                 // If no reaction could proceed due to insufficient coefficients, send a hint to the user
+                hintText = $"To initiate a {(numProducts == 1 ? "Combination" : "Replacement")} Reaction:\n";
+                hintText += reaction.coefficients.Item1.ToString() + " x " + firstEntity.formula + "\n";
+                hintText += reaction.coefficients.Item2.ToString() + " x " + secondEntity.formula;
+                
+                var hintQuery = new HashSet<string>
+                {
+                    firstEntity.formula,
+                    secondEntity.formula,
+                    "Hint"
+                };
+
+                UpdateReactionUI(hintText, hintQuery);
                 ShowNegativeFeedback(firstEntity.transform.position);
-                reactionText = $"To initiate a {(numProducts == 1 ? "Combination" : "Replacement")} Reaction:\n";
-                reactionText += reaction.coefficients.Item1.ToString() + " x " + firstEntity.formula + "\n";
-                reactionText += reaction.coefficients.Item2.ToString() + " x " + secondEntity.formula;
-                UpdateReactionUI(reactionText);
             }
             else
             {
@@ -180,6 +201,14 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"No reaction between {firstEntity.formula} and {secondEntity.formula}.");
             }
         }
+    }
+
+    private  IEnumerator DisplayGameCompletedWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        reactionUIManager.DisplayReactionText("Game completed!\n\n" +
+                                              "All chemical entities unlocked.");
+    
     }
     
     private void ShowPositiveFeedback(Vector3 position)
@@ -211,9 +240,14 @@ public class GameManager : MonoBehaviour
         return offsetPosition;
     }
     
-    private void UpdateReactionUI(string reactionText)
+    private void UpdateReactionUI(string reactionText, HashSet<string> printQuery)
     {
-        reactionUIManager.DisplayReactionText(reactionText);
+        // Repetition check
+        if (lastQuery == null || !printQuery.SetEquals(lastQuery))
+        {
+            reactionUIManager.DisplayReactionText(reactionText);
+        }
+        lastQuery = printQuery;
     }
     
     // Load all supported entities from database

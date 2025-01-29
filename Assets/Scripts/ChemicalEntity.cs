@@ -7,6 +7,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using Update = UnityEngine.PlayerLoop.Update;
 
 public class ChemicalEntity : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class ChemicalEntity : MonoBehaviour
     [SerializeField] public int coefficient = 1;
     [SerializeField] private TextMeshProUGUI coefficientText;
     [SerializeField] private TextMeshProUGUI formulaNameText;
+    [SerializeField] GameObject user;
     // [SerializeField] private ReactionUIManager reactionUIManager;
     
     private Grabbable grabbable;
@@ -104,7 +106,30 @@ public class ChemicalEntity : MonoBehaviour
         grabInteractable = GetComponent<GrabInteractable>();
         handGrabInteractable = GetComponent<HandGrabInteractable>();
 
+        user = FindAnyObjectByType<User>().gameObject;
     }
+    
+    void Update()
+    {
+        if (isColliding && !isGrabbed)
+        {
+            if (collidingChemEntity != null && !collidingChemEntity.GetComponent<ChemicalEntity>().isGrabbed)
+            {
+                OnReactionTriggered?.Invoke(this, collidingChemEntity.GetComponent<ChemicalEntity>());
+                
+                isColliding = false; // Ensure this is reset to avoid repeated calls
+                collidingChemEntity = null;
+            }
+        }
+
+        if (user != null)
+        {
+            // Make the text look at the user
+            formulaNameText.transform.LookAt(2 * formulaNameText.transform.position - user.transform.position);
+            coefficientText.transform.LookAt(2 * formulaNameText.transform.position - user.transform.position);
+        }
+    }
+
 
     public void UpdateGrabbed(bool state)
     {
@@ -159,22 +184,5 @@ public class ChemicalEntity : MonoBehaviour
             isColliding = false;
             collidingChemEntity = null;
         }
-    }
-
-    void Update()
-    {
-        if (isColliding && !isGrabbed)
-        {
-            if (collidingChemEntity != null && !collidingChemEntity.GetComponent<ChemicalEntity>().isGrabbed)
-            {
-                OnReactionTriggered?.Invoke(this, collidingChemEntity.GetComponent<ChemicalEntity>());
-                // Debug.Log("INVOKE TRIGGER");
-                
-                isColliding = false; // Ensure this is reset to avoid repeated calls
-                collidingChemEntity = null;
-            }
-            
-        }
-        
     }
 }
