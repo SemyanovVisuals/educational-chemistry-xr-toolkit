@@ -8302,6 +8302,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 1203449800}
+  _gameCompletedSound: {fileID: 8300000, guid: 82a77e62bbe6e9a4e98c7eb55f20868d, type: 3}
+  _gameCompletedMusic: {fileID: 8300000, guid: a31b057df8383fd409117ee02b9b6b53, type: 3}
   _positiveFeedbackParticles: {fileID: 8009422025968335498}
   _negativeFeedbackParticles: {fileID: 4645595749331426440}
   reactionUIManager: {fileID: 1665817797}
