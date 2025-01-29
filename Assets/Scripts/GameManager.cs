@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _gameCompletedSound;
+    [SerializeField] private AudioClip _gameCompletedMusic;
     [SerializeField] private ParticleSystem _positiveFeedbackParticles;
     [SerializeField] private ParticleSystem _negativeFeedbackParticles;
     [SerializeField] private ReactionUIManager reactionUIManager;
@@ -173,7 +176,7 @@ public class GameManager : MonoBehaviour
                     // Check if the game is completed
                     if (allEntities.Count == unlockedEntities.Count)
                     {
-                        StartCoroutine(DisplayGameCompletedWithDelay(2.5f));
+                        StartCoroutine(DisplayGameCompletedWithDelay(2f));
                     }
                     
                     // ShowPositiveFeedback(firstEntity.transform.position);
@@ -205,7 +208,9 @@ public class GameManager : MonoBehaviour
 
     private  IEnumerator DisplayGameCompletedWithDelay(float delay)
     {
+        _audioSource.PlayOneShot(_gameCompletedSound);
         yield return new WaitForSeconds(delay);
+        _audioSource.PlayOneShot(_gameCompletedMusic);
         reactionUIManager.DisplayReactionText("Game completed!\n\n" +
                                               "All chemical entities unlocked.");
     
