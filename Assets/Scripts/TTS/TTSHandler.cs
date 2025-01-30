@@ -1,3 +1,4 @@
+using System.Linq;
 using Meta.WitAi.TTS.Utilities;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class TTSHandler : MonoBehaviour
     public TTSSpeaker ttsSpeaker; 
     public NarrationManager narrationManager;
     public float cooldownTime = 60f; // Cooldown time in seconds to prevent repeating
+    
 
     private string lastEntitySpoken; 
     private float lastSpeakTime; 
@@ -14,7 +16,7 @@ public class TTSHandler : MonoBehaviour
     /// Speaks the explanation for the given entity (GameObject).
     /// </summary>
     /// <param name="entityObject">The GameObject being grabbed.</param>
-    public void Speak(GameObject entityObject)
+    public void Speak(string entityFormula, string entityName)
     {
         if (narrationManager == null || ttsSpeaker == null)
         {
@@ -22,14 +24,16 @@ public class TTSHandler : MonoBehaviour
             return;
         }
 
-        if (entityObject == null)
+        if (entityFormula == null)
         {
             Debug.LogError("TTSHandler: Provided entityObject is null.");
             return;
         }
-
+        
         // Get the name of the GameObject
-        string entityName = ParseName(entityObject.name);
+        //string entityName = ParseName(entityObject.name);
+        // string entityFormula = entity.formula;
+        // string entityName = entity.entityName;
 
         // Prevent repeating the same entity's explanation if cooldown hasn't passed
         if (entityName == lastEntitySpoken && Time.time - lastSpeakTime < cooldownTime)
@@ -46,16 +50,17 @@ public class TTSHandler : MonoBehaviour
         }
 
         // Get the explanation for the entity
-        string explanation = narrationManager.GetExplanation(entityName);
+        // string explanation = narrationManager.GetExplanation(entityName);
+        var explanation = TextToVoice(entityFormula, entityName);
 
-        if (!string.IsNullOrEmpty(explanation))
+        if (!string.IsNullOrEmpty(explanation) && entityName != lastEntitySpoken)
         {
             // Speak the explanation using TTSSpeaker
             ttsSpeaker.Speak(explanation);
             lastEntitySpoken = entityName; // Update the last entity spoken
             lastSpeakTime = Time.time; // Update the last speak time
         }
-        else
+        else if (string.IsNullOrEmpty(explanation))
         {
             // Handle missing explanation for the entity
             Debug.LogWarning($"TTSHandler: No explanation found for entity '{entityName}'.");
@@ -65,6 +70,48 @@ public class TTSHandler : MonoBehaviour
         }
     }
 
+    private static string TextToVoice(string entityFormula, string entityName)
+    {
+        // Collect all fellow reactants
+        var fellowReactants = ChemicalReactionDatabase.GetFellowReactants(entityFormula);
+        if (fellowReactants == null || fellowReactants.Count == 0) return entityName;
+
+        var text = entityName + "\nReacts with ";
+
+        // Check if there's more than one fellow reactant
+        if (fellowReactants.Count > 1)
+        {
+            for (int i = 0; i < fellowReactants.Count; i++)
+            {
+                var name = ChemicalReactionDatabase.GetEntityName(fellowReactants[i]);
+                if (name == null) continue;  // Skip if null
+
+                // Add a comma before all but the last element
+                if (i < fellowReactants.Count - 1)
+                {
+                    text += name + ", ";
+                }
+                else
+                {
+                    // Add "and" before the last element
+                    text += "and " + name;
+                }
+            }
+        }
+        else
+        {
+            // If only one fellow reactant, just add its name
+            var name = ChemicalReactionDatabase.GetEntityName(fellowReactants[0]);
+            if (name != null)
+            {
+                text += name;
+            }
+        }
+
+        return text;
+    }
+
+    
     /// <summary>
     /// Stops the TTS playback for the given entity (GameObject).
     /// </summary>
