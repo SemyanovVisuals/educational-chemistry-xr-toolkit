@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ReactionUIManager reactionUIManager;
     [SerializeField] private NotificationBanner banner;
     [SerializeField] private GameObject WinningGameEffects;
+    private int eff = 1;
+    [SerializeField] private GameObject ReactionFire;
 
     [Header("Entities Lists")]
     [SerializeField] private List<string> allEntities = new List<string>(); // Names of all entities supported by app 
@@ -114,6 +116,12 @@ public class GameManager : MonoBehaviour
                         if (prefab != null)
                         {
                             GameObject productInstance = Instantiate(prefab, newPosition, Quaternion.identity);
+                            if (firstEntity.formula == "C" || firstEntity.formula == "O2")
+                            {
+                                Debug.Log("working");
+                                ReactionFire.transform.position = productInstance.transform.position;
+                                ReactionFire.SetActive(true);
+                            }
                             productInstance.GetComponent<ChemicalEntity>().coefficient = product.Value;
                             productInstance.GetComponent<ChemicalEntity>().UpdateCoefficientUI();
                             productInstance.AddComponent<PrefabMunger>().MungePhysics();
