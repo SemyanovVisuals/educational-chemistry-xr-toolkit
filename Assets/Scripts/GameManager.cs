@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ParticleSystem _negativeFeedbackParticles;
     [SerializeField] private ReactionUIManager reactionUIManager;
     [SerializeField] private NotificationBanner banner;
+    [SerializeField] private GameObject WinningGameEffects;
 
     [Header("Entities Lists")]
     [SerializeField] private List<string> allEntities = new List<string>(); // Names of all entities supported by app 
@@ -224,7 +225,7 @@ public class GameManager : MonoBehaviour
         _audioSource.PlayOneShot(_gameCompletedMusic);
         reactionUIManager.DisplayReactionText("Game completed!\n\n" +
                                               "All chemical entities unlocked.");
-    
+        WinningGameEffects.SetActive(true);
     }
     
     private void ShowPositiveFeedback(Vector3 position)
