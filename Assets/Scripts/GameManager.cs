@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Oculus.Interaction;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -161,17 +159,30 @@ public class GameManager : MonoBehaviour
                     UpdateReactionUI(reactionText, reactionQuery);
                     
                     // Update unlocked entities list
-                    foreach (var product in reactions[0].products.Keys.ToList())
-                    {
-                        if (!unlockedEntities.Contains(product))
-                        {
-                            unlockedEntities.Add(product);
-                            EventManager.TriggerEvent(EventType.EntityUnlocked, product);
-                            banner.SetNotificationText($"New Entity Unlocked:\n{product}");
-                            banner.gameObject.SetActive(true);
+                    var newEntities = reactions[0].products.Keys.ToList().Except(unlockedEntities).ToList();
 
+                    if (newEntities.Any())
+                    {
+                        unlockedEntities.AddRange(newEntities);
+                        foreach (var product in newEntities)
+                        {
+                            EventManager.TriggerEvent(EventType.EntityUnlocked, product);
                         }
+                        
+                        banner.SetNotificationText($"New Entity Unlocked:\n{string.Join(", ", newEntities)}");
+                        banner.gameObject.SetActive(true);
                     }
+                    // foreach (var product in reactions[0].products.Keys.ToList())
+                    // {
+                    //     if (!unlockedEntities.Contains(product))
+                    //     {
+                    //         unlockedEntities.Add(product);
+                    //         EventManager.TriggerEvent(EventType.EntityUnlocked, product);
+                    //         banner.SetNotificationText($"New Entity Unlocked:\n{product}");
+                    //         banner.gameObject.SetActive(true);
+                    //
+                    //     }
+                    // }
                     
                     // Check if the game is completed
                     if (allEntities.Count == unlockedEntities.Count)
