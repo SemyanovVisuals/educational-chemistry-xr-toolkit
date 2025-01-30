@@ -147,7 +147,7 @@ public class CatalogBehaviour : MonoBehaviour
         GameObject target = (GameObject) obj;
         entity.AddComponent<Summonable>().ToTarget(target.transform.position+_summonOffset);
         entity.AddComponent<PrefabMunger>().MungePhysics();
-        entity.GetComponent<TTSInteractionHandler>().ttsHandler.Speak(entity);
+        entity.GetComponent<TTSInteractionHandler>().ttsHandler.Speak(currentlySelectedEntity, _entityNames[currentlySelectedEntity]);
 
     }
 }

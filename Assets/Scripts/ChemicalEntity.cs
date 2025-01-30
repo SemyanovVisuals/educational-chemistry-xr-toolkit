@@ -1,13 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using Update = UnityEngine.PlayerLoop.Update;
 
 public class ChemicalEntity : MonoBehaviour
 {
@@ -68,7 +64,7 @@ public class ChemicalEntity : MonoBehaviour
     [SerializeField] public Elements element;
     [SerializeField] private Compounds compound;
     [SerializeField] public string formula;
-    [SerializeField] private string name;
+    [SerializeField] public string entityName;
     [SerializeField] public int coefficient = 1;
     [SerializeField] private TextMeshProUGUI coefficientText;
     [SerializeField] private TextMeshProUGUI formulaNameText;
@@ -90,18 +86,18 @@ public class ChemicalEntity : MonoBehaviour
         if (entity == ChemEntity.Elements)
         {
             formula = element.ToString();
-            name = ElementsMap[element];
+            entityName = ElementsMap[element];
             compound = Compounds.None;
         }
         else
         {
             formula = compound.ToString();
-            name = CompoundsMap[compound];
+            entityName = CompoundsMap[compound];
             element = Elements.None;
         }
 
         UpdateCoefficientUI();
-        formulaNameText.text = formula + "\n" + name;
+        formulaNameText.text = formula + "\n" + entityName;
 
         grabInteractable = GetComponent<GrabInteractable>();
         handGrabInteractable = GetComponent<HandGrabInteractable>();
