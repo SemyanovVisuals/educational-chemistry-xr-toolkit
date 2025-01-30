@@ -304,10 +304,11 @@ MonoBehaviour:
   element: 0
   compound: 2
   formula: 
-  name: 
+  entityName: 
   coefficient: 1
   coefficientText: {fileID: 4401546996595121047}
   formulaNameText: {fileID: 6917317305477173287}
+  user: {fileID: 0}
 --- !u!114 &4845460240377047001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +541,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1797962697
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2632841437025000857
@@ -803,7 +804,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1797962697
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &9164003022402824463
