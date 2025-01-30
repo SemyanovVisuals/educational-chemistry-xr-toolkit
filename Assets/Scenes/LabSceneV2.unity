@@ -10141,6 +10141,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 467573715752855473, guid: 8edaf882e5626264c906367a32495704, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5b467315a93c9964088aad0a89375cd0, type: 3}
+    - target: {fileID: 663406871738461267, guid: 8edaf882e5626264c906367a32495704, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 663406871738461267, guid: 8edaf882e5626264c906367a32495704, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 663406871738461267, guid: 8edaf882e5626264c906367a32495704, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 663406871738461267, guid: 8edaf882e5626264c906367a32495704, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281019179
+      objectReference: {fileID: 0}
     - target: {fileID: 1789560874471554701, guid: 8edaf882e5626264c906367a32495704, type: 3}
       propertyPath: m_Camera
       value: 

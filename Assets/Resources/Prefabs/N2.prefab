@@ -439,7 +439,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1797962697
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2328657184684993630
@@ -651,7 +651,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1797962697
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1208427173347701753
@@ -974,7 +974,7 @@ MonoBehaviour:
   element: 5
   compound: 0
   formula: 
-  name: 
+  entityName: 
   coefficient: 1
   coefficientText: {fileID: 1462665562467694924}
   formulaNameText: {fileID: 971706747797428338}
