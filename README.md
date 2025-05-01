@@ -16,6 +16,12 @@ This project offers a gamified educational mixed reality (MR) platform for immer
 ### Tech Stack
 - Unity 6, Meta XR SDK
 
+### Demo
+[![Watch the video](https://img.youtube.com/vi/34s2Ijpf-do/0.jpg)](https://www.youtube.com/watch?v=34s2Ijpf-do)
+
+### Trailer
+[![Watch the video](https://img.youtube.com/vi/IfSA0gBRa1I/0.jpg)](https://www.youtube.com/watch?v=IfSA0gBRa1I)
+
 
 
 
