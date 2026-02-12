@@ -14,7 +14,7 @@ This project offers a gamified educational mixed reality (MR) platform for immer
 - Easter Eggs: Enjoy hidden surprises to celebrate milestones and achievements!
 
 ### Tech Stack
-Unity 6 · Meta XR SDK · MR
+Unity 6.0 · Meta XR SDK · MR · Gesture Recognition · MRUK · Text-to-Speech (TTS) · Custom 3D Models & Assets
 
 ### Demo
 [![Watch the video](https://img.youtube.com/vi/34s2Ijpf-do/0.jpg)](https://www.youtube.com/watch?v=34s2Ijpf-do)
